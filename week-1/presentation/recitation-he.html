@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>סטודיו שבוע 1 — ביטויים והתחלת שיעורי הבית</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <style>
+    html,body{direction:rtl}.reveal .slides section{direction:rtl;text-align:right!important}.reveal pre,.reveal pre code{direction:ltr;text-align:left!important}.reveal code{direction:ltr;unicode-bidi:isolate}.reveal .formula,.reveal .pixel{direction:ltr}
+    :root{--ink:#132030;--orange:#f36619;--green:#1e6e46;--violet:#5c3e91;--muted:#52606f}
+    .reveal{font-family:Inter,Avenir,Helvetica,Arial,sans-serif;color:var(--ink)}.reveal .slides section{box-sizing:border-box;padding:30px 60px;text-align:left}
+    .reveal h1,.reveal h2,.reveal h3{text-transform:none;color:var(--ink);letter-spacing:-.03em}.reveal h1{font-size:1.65em}.reveal h2{font-size:1.08em}.reveal h3{font-size:.62em}
+    .reveal p,.reveal li{font-size:.51em;line-height:1.32}.accent{color:var(--orange)}.muted{color:var(--muted)}
+    .tag{display:inline-block;border:2px solid var(--orange);border-radius:999px;padding:.2em .7em;color:var(--orange);font-size:.34em;font-weight:700}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid.three{grid-template-columns:repeat(3,1fr)}
+    .card{background:white;border:1px solid #dce3ed;border-left:7px solid var(--orange);border-radius:14px;padding:14px 18px;box-shadow:0 10px 25px #13203014}.physics{border-left-color:var(--violet)}.check{border-left-color:#2879b9}.math{border-left-color:var(--green)}
+    pre.code{font-size:.42em;line-height:1.32;background:#101923;color:#edf4ff;padding:15px 19px;border-radius:12px;white-space:pre-wrap;width:86%;margin:.35em auto}pre.output{font-size:.34em;background:#f0f8f3;color:var(--ink);padding:10px 16px;border-left:6px solid var(--green);border-radius:8px;width:86%;margin:.1em auto}
+    .time{color:var(--orange);font-weight:700}.notice{font-weight:700;color:var(--orange)}a{color:#2879b9}
+  /* Shared code/output appearance: output differs only in background. */
+.reveal pre{background:#f2f7fc;color:#132238;border:1px solid #ccd3da;border-radius:4px;box-shadow:none;padding:14px 18px;}
+.reveal pre.output,.reveal .output pre{background:#f1faf1;color:#132238;border:1px solid #ccd3da;border-radius:4px;}
+.reveal .output{background:#f1faf1;border-left:1px solid #ccd3da;}
+.reveal .output code{background:transparent;color:inherit;}
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+  <section>
+    <span class="tag">שבוע 1 · סטודיו מונחה על ידי המרצה (17 דקות)</span>
+    <h1>עקבו אחר חישוב אחד.<br><span class="accent">לאחר מכן התחילו את שיעורי הבית 1.</span></h1>
+    <p>ביטויים, השמות, סוגים, תיקון שגיאה אחת, ומעבר ישיר.</p>
+  <p data-course-notebook-link="complete"><a href="../notebooks/recitation_01-he.ipynb">מחברת התרגול המלאה</a></p></section>
+
+  <section>
+    <h2><span class="time">0–3 דקות</span> · חיזוי פיזיקלי</h2>
+    <div class="grid"><div class="card physics"><h3>מודל</h3><p>עבור מוליך אוהמי במצב קבוע בקירוב ובתחום שדה חלש/תגובה לינארית: <strong>V=RI</strong>, R=V/I (אוהם), G=1/R (סימנס).</p></div><div class="card check"><h3>מוסכמה ובדיקה</h3><p>זרם חיובי I מתאים למתח חיובי V. חזו ב-I=0: V=0. חימום, שדות חזקים, מגעים, שינויי מצב והתקנים לא־אוהמיים יכולים לשבור את מודל הישר.</p></div></div>
+    <p class="muted">בהתאמה שסופקה, x הוא ההתארכות ו-y הוא הכוח, כך שהשיפוע הוא קבוע הקפיץ.</p>
+  </section>
+
+  <section>
+    <h2><span class="time">3–11 דקות</span> · קריאה והתאמה</h2>
+    <pre class="code"><code class="language-julia">using CSV, DataFrames
+spring = CSV.read("reveal/week01/spring_force.csv", DataFrame)
+x = spring.extension_m
+y = spring.force_N
+println(length(x), " measurements")</code></pre>
+    <pre class="output"><code>6 measurements</code></pre>
+    <p>שש מדידות תואמות. נחזיר <bdi>F=0</bdi> כאשר <bdi>x=0</bdi> ונצפה למגמה עולה וישרה.</p>
+    <pre class="code"><code class="language-julia">x = [0.00, 0.02, 0.04, 0.06, 0.08, 0.10]   # m
+y = [0.01, 0.39, 0.81, 1.18, 1.61, 1.99]    # N
+n = length(x)
+xbar = sum(x) / n; ybar = sum(y) / n
+slope = sum((x .- xbar) .* (y .- ybar)) / sum((x .- xbar).^2)
+intercept = ybar - slope * xbar
+println("slope = $(round(slope; digits=1)) N/m")
+println("intercept = $(round(intercept; digits=4)) N")</code></pre>
+    <pre class="output"><code>slope = 19.9 N/m
+intercept = 0.0033 N</code></pre>
+    <p>יחידות השיפוע הן ניוטון למטר, ולכן הוא מעריך <bdi>k≈19.9 N/m</bdi>. חיתוך קטן הוא בדיקת היסט, לא חוק חדש.</p>
+  </section>
+
+  <section>
+    <h2><span class="time">11–15 דקות</span> · תיקון וסיווג</h2>
+    <div class="grid"><div class="card"><h3>שגיאת תחביר</h3><p><code>slope =</code><br>תקנו את הצד הימני הלא-שלם.</p></div><div class="card physics"><h3>שגיאה לוגית</h3><p><code>x / y</code> אמנם רץ, אך m/N הוא הופכי קבוע הקפיץ ולא הקבוע עצמו.</p></div></div>
+    <p class="notice">נקודת בדיקה: לאיזה ביטוי יחידות אוהם, ולאיזה יחידות סימנס?</p>
+  </section>
+
+  <section>
+    <h2><span class="time">15–17 דקות</span> · פתיחת הליבה</h2>
+    <div class="grid"><div class="card check"><h3>אתרו נתונים</h3><p><code>t_s</code> ו-<code>y_m</code></p></div><div class="card math"><h3>עקבו אחר התוצאה</h3><p><code>g</code>, תחזיות ושאריות</p></div></div>
+    <p>העתיקו את מתכון ההתאמה. נגיש קטע שקט — ללא פונקציה, אימות, לולאה, קריאת קובץ או יצירת גרף.</p>
+    <p><a href="../notebooks/recitation_01-he.ipynb">פתחו את מחברת התאמת הקפיץ</a> · <a href="../notebooks/recitation_01-he.ipynb">פתחו את מחברת הנפילה החופשית</a> · <a href="../HW1-he.pdf">פתחו את שיעורי הבית 1</a></p>
+  </section>
+
+  <section>
+    <h2><span class="time">אחרי 17 דקות</span> · שיעורי הבית בלבד</h2>
+    <p class="notice">החומר המונחה על ידי המרצה מסתיים עכשיו.</p>
+    <p>הנותר הוא עבודה נתמכת במחברת ליבה נפרדת. אין פעילות נוספת של תרגול; בונוס נשאר נפרד ואופציונלי.</p>
+  </section>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>Reveal.initialize({hash:true,slideNumber:true,plugins:[RevealHighlight]});</script>
+</body>
+</html>

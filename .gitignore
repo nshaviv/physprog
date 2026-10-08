@@ -1,0 +1,6 @@
+.DS_Store
+__pycache__/
+.ipynb_checkpoints/
+course_material/notebooks/**/generated/
+course_material/notebooks/.venv/
+*.pyc

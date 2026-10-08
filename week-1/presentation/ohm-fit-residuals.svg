@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+  <title id="title">Ohm-law fit and residuals</title>
+  <desc id="desc">The left panel shows voltage measurements with their fitted line. The right panel shows small residuals near zero.</desc>
+  <rect width="1200" height="500" rx="24" fill="#ffffff"/>
+  <text x="60" y="46" fill="#132030" font-family="Arial, sans-serif" font-size="25" font-weight="700">The result needs two graphs: model agreement and residual evidence</text>
+  <g stroke="#dce3ed" stroke-width="1.4">
+    <line x1="82" y1="105" x2="82" y2="405"/><line x1="82" y1="405" x2="550" y2="405"/><line x1="82" y1="330" x2="550" y2="330"/><line x1="82" y1="255" x2="550" y2="255"/><line x1="82" y1="180" x2="550" y2="180"/><line x1="82" y1="105" x2="550" y2="105"/>
+    <line x1="662" y1="105" x2="662" y2="405"/><line x1="662" y1="405" x2="1130" y2="405"/><line x1="662" y1="330" x2="1130" y2="330"/><line x1="662" y1="255" x2="1130" y2="255"/><line x1="662" y1="180" x2="1130" y2="180"/><line x1="662" y1="105" x2="1130" y2="105"/>
+    <line x1="747" y1="105" x2="747" y2="405"/><line x1="832" y1="105" x2="832" y2="405"/><line x1="917" y1="105" x2="917" y2="405"/><line x1="1002" y1="105" x2="1002" y2="405"/><line x1="1087" y1="105" x2="1087" y2="405"/>
+  </g>
+  <g fill="#52606f" font-family="Arial, sans-serif" font-size="15" text-anchor="end"><text x="72" y="410">0.0</text><text x="72" y="335">0.7</text><text x="72" y="260">1.4</text><text x="72" y="185">2.1</text><text x="72" y="110">2.8</text><text x="652" y="110">0.015</text><text x="652" y="185">0.0075</text><text x="652" y="260">0</text><text x="652" y="335">-0.0075</text><text x="652" y="410">-0.015</text></g>
+  <g fill="#52606f" font-family="Arial, sans-serif" font-size="15" text-anchor="middle"><text x="82" y="431">0.0</text><text x="167" y="431">0.1</text><text x="252" y="431">0.2</text><text x="337" y="431">0.3</text><text x="422" y="431">0.4</text><text x="507" y="431">0.5</text><text x="662" y="431">0.0</text><text x="747" y="431">0.1</text><text x="832" y="431">0.2</text><text x="917" y="431">0.3</text><text x="1002" y="431">0.4</text><text x="1087" y="431">0.5</text></g>
+  <text x="316" y="476" fill="#132030" font-family="Arial, sans-serif" font-size="18" text-anchor="middle">current I [A]</text><text x="895" y="476" fill="#132030" font-family="Arial, sans-serif" font-size="18" text-anchor="middle">current I [A]</text>
+  <text x="31" y="255" fill="#132030" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" transform="rotate(-90 31 255)">voltage V [V]</text><text x="611" y="255" fill="#132030" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" transform="rotate(-90 611 255)">residual [V]</text>
+  <line x1="124" y1="377" x2="525" y2="128" stroke="#1e6e46" stroke-width="5"/>
+  <g fill="#f36619" stroke="#ffffff" stroke-width="2.5"><circle cx="167" cy="350" r="7"/><circle cx="252" cy="297" r="7"/><circle cx="337" cy="242" r="7"/><circle cx="422" cy="190" r="7"/><circle cx="507" cy="137" r="7"/></g>
+  <line x1="662" y1="255" x2="1130" y2="255" stroke="#2879b9" stroke-width="3"/>
+  <g fill="#f36619" stroke="#ffffff" stroke-width="2.5"><circle cx="747" cy="275" r="7"/><circle cx="832" cy="305" r="7"/><circle cx="917" cy="135" r="7"/><circle cx="1002" cy="265" r="7"/><circle cx="1087" cy="295" r="7"/></g>
+  <g font-family="Arial, sans-serif" font-size="16" fill="#132030"><circle cx="315" cy="80" r="6" fill="#f36619"/><text x="329" y="86">measurements</text><line x1="437" y1="80" x2="463" y2="80" stroke="#1e6e46" stroke-width="4"/><text x="472" y="86">least-squares model</text></g>
+  <text x="896" y="80" fill="#52606f" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">A small, patternless cloud supports the line model.</text>
+</svg>

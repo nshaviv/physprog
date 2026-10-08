@@ -1,0 +1,157 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>פרק 2 — ערכים, החלטות ומישור משופע</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css"><style>:root{--ink:#132030;--orange:#f36619;--green:#1e6e46;--violet:#5c3e91;--blue:#2879b9}.reveal{font-family:Arial,sans-serif;color:var(--ink)}.reveal .slides section{box-sizing:border-box;padding:24px 58px;direction:rtl;text-align:right}.reveal h1,.reveal h2,.reveal h3{text-transform:none;color:var(--ink)}.reveal h1{font-size:1.65em}.reveal h2{font-size:1.08em}.reveal h3{font-size:.62em}.reveal p,.reveal li{font-size:.51em;line-height:1.32}.accent{color:var(--orange)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid.three{grid-template-columns:repeat(3,1fr)}.card{background:#fff;border:1px solid #dce3ed;border-right:7px solid var(--orange);border-radius:14px;padding:13px 17px;box-shadow:0 10px 25px #13203014}.physics{border-right-color:var(--violet)}.math{border-right-color:var(--green)}.check{border-right-color:var(--blue)}pre,code{direction:ltr;unicode-bidi:isolate;text-align:left}pre{font-size:.39em;line-height:1.3;background:#101923;color:#edf4ff;padding:14px 18px;border-radius:12px;white-space:pre-wrap}.output{background:#f0f8f3;color:var(--ink);border-right:6px solid var(--green)}table{font-size:.46em;border-collapse:collapse;margin:auto}td,th{padding:.32em .65em;border:1px solid #dce3ed}th{color:var(--orange)}@media(max-width:700px){.reveal .slides section{padding:18px 28px}.grid,.grid.three{grid-template-columns:1fr}.reveal p,.reveal li{font-size:.62em}}/* Shared code/output appearance: output differs only in background. */
+.reveal pre{background:#f2f7fc;color:#132238;border:1px solid #ccd3da;border-radius:4px;box-shadow:none;padding:14px 18px;}
+.reveal pre.output,.reveal .output pre{background:#f1faf1;color:#132238;border:1px solid #ccd3da;border-radius:4px;}
+.reveal .output{background:#f1faf1;border-left:1px solid #ccd3da;}
+.reveal .output code{background:transparent;color:inherit;}
+</style></head><body><div class="reveal"><div class="slides">
+<section><h1>פרק 2<br><span class="accent">ערכים, החלטות ומישור משופע</span></h1><p>נבחר ייצוג, נאמת אותו, נבנה תנאים בוליאניים וננסח מודל פיזיקלי בחלקים.</p><p data-course-notebook-link="complete"><a href="../notebooks/lecture_02-he.ipynb">מחברת ההרצאה המלאה</a></p></section>
+<section><h2>לערך יש טיפוס</h2><table><tr><th>ערך</th><th>טיפוס</th><th>שימוש</th></tr><tr><td><code>3</code></td><td><code>Int</code></td><td>ספירה מדויקת</td></tr><tr><td><code>3.0</code></td><td><code>Float64</code></td><td>מדידה מספרית</td></tr><tr><td><code>"ready"</code></td><td><code>String</code></td><td>טקסט</td></tr><tr><td><code>true</code></td><td><code>Bool</code></td><td>תנאי</td></tr></table><pre><code class="language-julia">println(3, "  -&gt;  ", typeof(3))
+println(3.0, "  -&gt;  ", typeof(3.0))
+println("3", "  -&gt;  ", typeof("3"))
+println(3 &lt; 4, "  -&gt;  ", typeof(3 &lt; 4))</code></pre><pre class="output"><code>3  -&gt;  Int64
+3.0  -&gt;  Float64
+3  -&gt;  String
+true  -&gt;  Bool</code></pre></section>
+<section><h2>ערבוב והמרה הם בחירה מפורשת</h2><pre><code class="language-julia">println(2 + 0.5)
+text = "12.5"
+mass = parse(Float64, text)   # kg
+println(mass + 0.5)
+println(string(mass, " kg"))
+println(Int(7.0))</code></pre><pre class="output"><code>2.5
+13.0
+12.5 kg
+7</code></pre><p><code>readline()</code> מחזירה <code>String</code>; ‏<code>parse</code> מבקשת מספר. המרה שנכשלת היא מידע שימושי. <code>Int(7.2)</code> נכשלת כי הערך אינו שלם, והמרה מספרית אינה יודעת יחידות או תחום פיזיקלי.</p></section>
+<section><h2>בוליאנים מבטאים תנאים</h2><table><tr><th>a</th><th>b</th><th><code>a &amp;&amp; b</code></th><th><code>a || b</code></th><th><code>xor(a,b)</code></th></tr><tr><td>true</td><td>true</td><td>true</td><td>true</td><td>false</td></tr><tr><td>true</td><td>false</td><td>false</td><td>true</td><td>true</td></tr><tr><td>false</td><td>true</td><td>false</td><td>true</td><td>true</td></tr><tr><td>false</td><td>false</td><td>false</td><td>false</td><td>false</td></tr></table><p><code>!</code> שולל. סוגריים מבהירים קיבוץ; <code>=</code> מציבה ואילו <code>==</code> משווה.</p></section>
+<section><h2>בונים תנאי בהדרגה</h2><pre><code class="language-julia">if temperature &lt; 0
+    state = "ice"
+elseif temperature == 0
+    state = "melting-point"
+else
+    state = "liquid"
+end
+println(state)</code></pre><pre class="output"><code>ice</code></pre><p>כאשר <code>temperature</code> הוגדר קודם כ־<code>-2.0</code>. ענף אחד בלבד רץ: קודם סיווג קטן, ואחר כך אי־שוויון פיזיקלי.</p></section>
+<section><h2>גוף על מישור: קובעים סימנים לפני קוד</h2><div class="grid"><div class="card physics"><p>נבחר מעלה המישור כחיובי. <code>N = mg cos(θ)</code>; רכיב הכבידה הוא <code>−mg sin(θ)</code>. יש להמיר מעלות לרדיאנים לפני <code>sin</code>/<code>cos</code>.</p></div><div class="card math"><p>אם <code>mg sin(θ) ≤ μₛN</code> הגוף תקוע. אחרת הוא מחליק, ו־<code>a=(−mg sin(θ)+μₖN)/m</code>.</p></div></div><p>תחום תקפות: <code>m,g&gt;0</code>, ‏<code>0≤μₖ≤μₛ</code>, ‏<code>0≤θ&lt;90°</code>. גבולות: אופקי נותן חיכוך נדרש אפס; ללא חיכוך <code>a=−g sin(θ)</code>.</p></section>
+<section><h2>מאמתים ואז בוחרים ענף</h2><pre><code class="language-julia">mass = 2.0      # kg
+angle = 30.0    # deg
+μ_s = 0.60
+μ_k = 0.40
+g = 9.81        # m/s^2
+if !(mass isa Real) || mass isa Bool || !isfinite(mass) || mass &lt;= 0
+    throw(ArgumentError("mass must be finite, positive, and non-Boolean"))
+elseif !isfinite(angle) || !(0 &lt;= angle &lt; 90) || μ_k &lt; 0 || μ_k &gt; μ_s
+    throw(ArgumentError("use 0 &lt;= angle &lt; 90 and 0 &lt;= μ_k &lt;= μ_s"))
+end
+θ = deg2rad(angle)   # rad
+normal = mass * g * cos(θ)   # N
+needed_static = mass * g * sin(θ)   # N
+if needed_static &lt;= μ_s * normal
+    state = "stuck"
+    acceleration = 0.0   # m/s^2
+else
+    state = "sliding"
+    acceleration = (-needed_static + μ_k * normal) / mass   # m/s^2
+end
+println(state, ", a = ", acceleration, " m/s^2")</code></pre><pre class="output"><code>stuck, a = 0.0 m/s^2</code></pre><p>שינוי <code>μ_s</code> בלבד ל־<code>0.40</code> נותן <code>sliding</code> עם תאוצה שלילית: שלילי הוא במורד. קלט <code>μ_k=0.8, μ_s=0.6</code> זורק <code>ArgumentError</code>—אין להמשיך עם מודל לא תקין.</p></section>
+<section><h2>כל הקוד בפרק: ערכים, טיפוסים והצבה</h2><pre><code class="language-julia">current = [0.10, 0.20, 0.30, 0.40, 0.50]   # A
+n = length(current)                 # Int
+I_bar = sum(current) / n            # Float64, A
+axis_label = "current I [A]"    # String
+analysis_ready = true           # Bool
+
+println(typeof(n))
+println(typeof(I_bar))
+println(typeof(axis_label))
+println(typeof(analysis_ready))</code></pre><pre><code class="language-julia">2 * 0.35       # 0.7, a Float64
+5 / 2          # 2.5, a Float64
+Float64(5)     # 5.0</code></pre><pre><code class="language-julia">x = 4
+y = x + 1       # y is now 5
+x = 10          # x changes, but y is still 5</code></pre><pre><code class="language-julia">temperature = 20.0   # C
+temperature = temperature + 0.5
+
+println(temperature)     # 20.5</code></pre><pre class="output"><code>20.5</code></pre><pre><code class="language-julia">mass = 2.0        # kg
+speed = 3.0       # m/s
+momentum = mass * speed   # kg m/s
+
+println(momentum)   # 6.0</code></pre><pre class="output"><code>6.0</code></pre><pre><code class="language-julia">momentum
+println("momentum = $(momentum) kg m/s")</code></pre></section>
+<section><h2>כל הקוד בפרק: בוליאנים והחלטות</h2><pre><code class="language-julia">2 &lt; 3          # true
+2 == 3         # false
+5 != 4         # true</code></pre><pre><code class="language-julia">true &amp;&amp; false      # false: both must be true
+true || false      # true: at least one is true
+!true              # false</code></pre><pre><code class="language-julia">t = 0.35   # s
+z0 = 1.20   # m
+nonnegative_time = t &gt;= 0
+valid_height = z0 &gt;= 0
+valid_input = nonnegative_time &amp;&amp; valid_height</code></pre><pre><code class="language-julia">if condition
+    # commands when the condition is true
+else
+    # commands when the condition is false
+end</code></pre><pre><code class="language-julia">temperature = 25.0   # C
+if temperature &gt; 30
+    println("hot")
+else
+    println("not hot")
+end</code></pre><pre class="output"><code>not hot</code></pre><pre><code class="language-julia">temperature = -2.0   # C
+println(temperature &lt; 0)
+if temperature &lt; 0
+    println("below freezing")
+else
+    println("not below freezing")
+end</code></pre><pre class="output"><code>true
+below freezing</code></pre><pre><code class="language-julia">is_finite_positive = isfinite(2.0) &amp;&amp; 2.0 &gt; 0
+println(is_finite_positive)
+println(!is_finite_positive || 2.0 == 2)</code></pre><pre class="output"><code>true
+true</code></pre></section>
+<section><h2>כל הקוד בפרק: דוגמת גובה ודוגמת קלט</h2><pre><code class="language-julia">throw(ArgumentError("message"))</code></pre><pre><code class="language-julia">t = 0.35   # s
+z0 = 1.20   # m
+v0 = 0.0    # m/s
+g = -9.81   # m/s^2
+
+if t &lt; 0 || z0 &lt; 0
+    throw(ArgumentError("time and initial height must be non-negative"))
+end
+
+z_free = z0 + v0 * t + 0.5 * g * t^2   # m
+
+if z_free &gt; 0
+    z = z_free
+    state = "in air"
+else
+    z = 0.0
+    state = "on the ground"
+end
+
+println("at t = $(t) s: z = $(round(z, digits=3)) m ($(state))")</code></pre><pre class="output"><code>at t = 0.35 s: z = 0.599 m (in air)</code></pre><pre><code class="language-julia">value = -2
+if value &lt; 0
+    description = "negative"
+elseif value == 0
+    description = "zero"
+else
+    description = "positive"
+end</code></pre><pre><code class="language-julia">if z == 0
+    state = "on the ground"
+elseif z &lt; 0.20
+    state = "close to the ground"
+else
+    state = "in air"
+end</code></pre></section>
+<section><h2>כל הקוד בפרק: כלים לזוויות</h2><pre><code class="language-julia">println(true &amp;&amp; false)
+println(true || false)
+println(xor(true, true))
+println(xor(true, false))
+println(sin(pi / 6))
+println(sind(30.0))
+println(round(rad2deg(atan(1.0, -1.0)); digits=1))</code></pre><pre class="output"><code>false
+true
+false
+true
+0.49999999999999994
+0.5
+135.0</code></pre><pre><code class="language-julia">text = "2.5"  # reproducible example of text supplied by readline()
+mass = parse(Float64, text)   # kg
+if !isfinite(mass) || mass &lt;= 0
+    throw(ArgumentError("mass must be finite and positive"))
+end
+println("mass = ", mass, " kg")</code></pre><pre class="output"><code>mass = 2.5 kg</code></pre></section>
+<section><h2>העברה</h2><div class="grid three"><div class="card"><h3>תרגול</h3><p>גוף נמשך במעלה המישור; כיוון החיכוך נקבע על פי נטיית התנועה.</p></div><div class="card physics"><h3>תרגיל בית</h3><p>קליע וקיר: גובה, <code>"rising"</code>/<code>"falling"</code>, ומעבר מעל הקיר; שוויון נחשב מעבר.</p></div><div class="card math"><h3>להעמקה</h3><p>פאזורים AC או החזרה פנימית מלאה—אופציונליים.</p></div></div><p><a href="../notebooks/lecture_02-he.ipynb">מחברת ההרצאה</a> · הבא: לולאות, וקטורים ובדיקות צעד זמן.</p></section>
+</div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script><script>Reveal.initialize({hash:true,slideNumber:true,transition:"fade",plugins:[RevealHighlight]});</script></body></html>

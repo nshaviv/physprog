@@ -1,0 +1,91 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chapter 3 — Loops, Vectors, and Sampled Motion</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css"><style>:root{--ink:#132238;--orange:#f36619;--green:#1e6e46;--violet:#5c3e91;--blue:#2879b9}.reveal{font-family:Inter,Avenir,Arial,sans-serif;color:var(--ink)}.reveal .slides section{box-sizing:border-box;padding:24px 58px;text-align:left}.reveal h1,.reveal h2,.reveal h3{text-transform:none;color:var(--ink)}.reveal h1{font-size:1.65em}.reveal h2{font-size:1.08em}.reveal h3{font-size:.62em}.reveal p,.reveal li{font-size:.51em;line-height:1.32}.accent{color:var(--orange)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid.three{grid-template-columns:repeat(3,1fr)}.card{background:#fff;border:1px solid #dce3ed;border-left:7px solid var(--orange);border-radius:14px;padding:13px 17px;box-shadow:0 10px 25px #13203014}.physics{border-left-color:var(--violet)}.math{border-left-color:var(--green)}.check{border-left-color:var(--blue)}pre{font-size:.39em;line-height:1.3;background:#101923;color:#edf4ff;padding:14px 18px;border-radius:12px;white-space:pre-wrap}.output{background:#f0f8f3;color:var(--ink);border-left:6px solid var(--green)}@media(max-width:700px){.reveal .slides section{padding:18px 28px}.grid,.grid.three{grid-template-columns:1fr}.reveal p,.reveal li{font-size:.62em}}/* Shared code/output appearance: output differs only in background. */
+.reveal pre{background:#f2f7fc;color:#132238;border:1px solid #ccd3da;border-radius:4px;box-shadow:none;padding:14px 18px;}
+.reveal pre.output,.reveal .output pre{background:#f1faf1;color:#132238;border:1px solid #ccd3da;border-radius:4px;}
+.reveal .output{background:#f1faf1;border-left:1px solid #ccd3da;}
+.reveal .output code{background:transparent;color:inherit;}
+</style></head><body><div class="reveal"><div class="slides">
+<section><h1>Chapter 3<br><span class="accent">Loops, vectors, and sampled motion</span></h1><p>When one calculation becomes many, we repeat deliberately, store aligned histories, and check what the timestep changed.</p><p data-course-notebook-link="complete"><a href="../notebooks/lecture_03-en.ipynb">Complete lecture notebook</a></p></section>
+<section><h2>Why loop?</h2><div class="grid"><div class="card physics"><h3>A physical trajectory</h3><p>A computer does not see a continuous curve. It updates and stores samples at many times until a stated stopping event.</p></div><div class="card math"><h3>A repeatable pattern</h3><p>Loops replace copied calculations. They make the update rule, the counter, and the stopping condition inspectable.</p></div></div></section><section><h2>Trace an accumulator</h2><pre><code class="language-julia">let total = 0
+    for n in 1:4
+        total = total + n
+        println("n = $n, total = $total")
+    end
+end</code></pre><pre class="output"><code>n = 1, total = 1
+n = 2, total = 3
+n = 3, total = 6
+n = 4, total = 10</code></pre></section>
+<section><h2>Ranges say which values to visit</h2><pre><code class="language-julia">for time in 0:2:10   # s
+    println("time = $time s")
+end</code></pre><pre class="output"><code>time = 0 s
+time = 2 s
+time = 4 s
+time = 6 s
+time = 8 s
+time = 10 s</code></pre><p><code>start:step:stop</code> is a range. Interpolation in <code>"time = $time s"</code> inserts the current value into a readable string.</p></section>
+<section><h2>Vectors preserve order—and Julia starts at 1</h2><pre><code class="language-julia">height = [1.0, 1.5, 2.0, 2.5]   # m
+println(length(height))
+println(height[1], ", ", height[end])
+println(height[2:3])</code></pre><pre class="output"><code>4
+1.0, 2.5
+[1.5, 2.0]</code></pre><p><code>end</code> is the last index; a slice copies a selected part. Julia's ordinary vectors start at index 1.</p></section>
+<section><h2>Indices, slices, and building a vector</h2><div class="grid"><div><pre><code class="language-julia">part = height[2:3]
+part[1] = 99.0
+println(height)
+for i in eachindex(height)
+    println("sample $i: $(height[i]) m")
+end</code></pre><p><code>part = height[2:3]</code> copies those entries, so changing <code>part[1]</code> leaves <code>height</code> unchanged. <code>eachindex</code> supplies valid indices.</p></div><div><pre><code class="language-julia">squares = Int[]
+for n in 1:4
+    push!(squares, n^2)
+end
+println(squares)</code></pre><p><code>Int[]</code> starts an empty vector. <code>push!</code> mutates it; the exclamation mark marks a mutating operation.</p></div></div></section>
+<section><h2>Slices and measurement summaries</h2><pre><code class="language-julia">using Statistics
+measurements = [1.0, 2.0, 3.0]   # m
+println(mean(measurements))
+println(std(measurements))</code></pre><pre class="output"><code>2.0
+1.0</code></pre><p><code>Statistics</code> is supplied with Julia, so it needs no package installation. Corrected sample standard deviation uses n−1; a trajectory is not automatically a set of independent repeated measurements.</p></section>
+<section><h2>Euler update: derive the two lines we repeat</h2><div class="grid"><div class="card math"><p>For a small interval Δt: <code>xₙ₊₁ = xₙ + vₓ,ₙ Δt</code>, <code>yₙ₊₁ = yₙ + vᵧ,ₙ Δt</code>.</p></div><div class="card physics"><p>No drag, uniform gravity, +x horizontal and +y upward: <code>vₓ,ₙ₊₁=vₓ,ₙ</code>, <code>vᵧ,ₙ₊₁=vᵧ,ₙ−gΔt</code>.</p></div></div><p>We use the old velocity for the position update, then update velocity. This is the published Euler convention for this lesson.</p></section>
+<section><h2>Store the complete sampled trajectory</h2><pre><code class="language-julia">using Plots
+g = 9.81        # m/s^2
+dt = 0.05       # s
+t = [0.0]       # s
+x = [0.0]       # m
+y = [1.0]       # m
+vx = [10.0 * cosd(45.0)]   # m/s
+vy = [10.0 * sind(45.0)]   # m/s
+while y[end] &gt; 0.0
+    push!(t, t[end] + dt)
+    push!(x, x[end] + vx[end] * dt)
+    push!(y, y[end] + vy[end] * dt)
+    push!(vx, vx[end])
+    push!(vy, vy[end] - g * dt)
+end
+trajectory = plot(x, y; xlabel="x (m)", ylabel="y (m)",
+                  label="Euler samples")
+display(trajectory)
+println("samples = $(length(t)); landed = $(y[end] &lt;= 0)")</code></pre><pre class="output"><code>samples = 34; landed = true</code></pre><p>All vectors include the initial state and the first nonpositive-height sample. We do not replace the final negative height with zero.</p></section>
+<section><h2>Plot trajectories honestly; refine the timestep</h2><img src="trajectory-euler.svg" alt="Analytic no-drag trajectory and Euler trajectories at 0.05 and 0.025 seconds" style="width:92%;display:block;margin:auto"><p><code>dt=0.05 s</code>: first crossing 1.65 s, range 11.667 m. <code>dt=0.025 s</code>: 1.60 s, 11.314 m. Analytic no-drag: 1.571 s, 11.111 m.</p></section>
+<section><h3>Full code from this chapter</h3><p>Additional loop and vector examples from the written chapter, in order.</p><pre><code class="language-julia">for n in 1:3
+    println(n)
+end</code></pre><pre class="output"><code>1
+2
+3</code></pre><pre><code class="language-julia">let result = ""
+    for character in "orbit"
+        result = string(character, result)
+    end
+    println(result)
+end</code></pre><pre class="output"><code>tibro</code></pre><pre><code class="language-julia">for n in 1:10
+    if n^2 &gt;= 20
+        println("first square at least 20 is $(n^2)")
+        break
+    end
+end</code></pre><pre class="output"><code>first square at least 20 is 25</code></pre><pre><code class="language-julia">let count = 1
+    while count &lt;= 3
+        println(count)
+        count = count + 1
+    end
+end</code></pre><pre class="output"><code>1
+2
+3</code></pre></section>
+<section><h2>Checks distinguish numerical from physical limits</h2><div class="grid three"><div class="card check"><h3>Aligned history</h3><p>All five vectors have equal length and start at <code>t=0</code>.</p></div><div class="card physics"><h3>Stopping convention</h3><p>The last point is the first sampled <code>y≤0</code>; it is not the exact impact point.</p></div><div class="card math"><h3>Refinement</h3><p>Halve <code>dt</code> and compare. It addresses timestep error, not omitted drag or impact physics.</p></div></div></section>
+<section><h2>Handoff</h2><div class="grid three"><div class="card"><h3>Recitation</h3><p>Use a bounded <code>while</code> search for the first cooling sample at or below a threshold; equality counts.</p></div><div class="card physics"><h3>Core HW</h3><p>Launch from a balcony, retain the initial state and first ground sample, then compare two timesteps.</p></div><div class="card math"><h3>Going further</h3><p>Optional deterministic random walks, then diffusion from an ensemble—one path is not an ensemble statistic.</p></div></div><p><a href="../notebooks/lecture_03-en.ipynb">Runnable lecture notebook</a> · Next: matrices and rotations in Week 4; functions in Week 5.</p></section>
+</div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script><script>Reveal.initialize({hash:true,slideNumber:true,transition:"fade"});</script></body></html>

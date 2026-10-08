@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 650" role="img" aria-labelledby="title desc">
+  <title id="title">Sampled free fall and time steps</title>
+  <desc id="desc">A continuous falling path is observed at evenly spaced times, with the first sampled ground crossing highlighted.</desc>
+  <defs>
+    <filter id="paper" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="17" result="noise"/>
+      <feColorMatrix in="noise" values="1 0 0 0 0.11  0 1 0 0 0.22  0 0 1 0 0.20  0 0 0 .13 0"/>
+    </filter>
+    <filter id="wash" x="-30%" y="-30%" width="160%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="31" result="turb"/>
+      <feDisplacementMap in="SourceGraphic" in2="turb" scale="20"/>
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+    <marker id="arrow-navy" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0 0 L11 5.5 L0 11 Z" fill="#243447"/>
+    </marker>
+  </defs>
+
+  <g id="background">
+    <rect width="1600" height="650" fill="#f5f0e5"/>
+    <rect width="1600" height="650" filter="url(#paper)" opacity=".92"/>
+    <g filter="url(#wash)" opacity=".62">
+      <ellipse cx="450" cy="330" rx="380" ry="270" fill="#2a9d8f" opacity=".26"/>
+      <ellipse cx="940" cy="390" rx="460" ry="190" fill="#e9c46a" opacity=".33"/>
+      <ellipse cx="1370" cy="250" rx="250" ry="200" fill="#e76f51" opacity=".22"/>
+    </g>
+  </g>
+
+  <g id="time-ruler" stroke-linecap="round">
+    <path d="M185 104 V554" stroke="#243447" stroke-width="6" marker-end="url(#arrow-navy)"/>
+    <g stroke="#243447" stroke-width="4">
+      <path d="M163 128 H207 M163 218 H207 M163 308 H207 M163 398 H207 M163 488 H207"/>
+    </g>
+    <g fill="#2a9d8f" stroke="#243447" stroke-width="4">
+      <circle cx="185" cy="128" r="12"/>
+      <circle cx="185" cy="218" r="12"/>
+      <circle cx="185" cy="308" r="12"/>
+      <circle cx="185" cy="398" r="12"/>
+      <circle cx="185" cy="488" r="12"/>
+    </g>
+  </g>
+
+  <g id="sampled-fall" fill="none" stroke-linecap="round">
+    <path d="M450 108 C585 145 726 251 846 520 C871 575 898 606 930 625" stroke="#243447" stroke-width="5" opacity=".46"/>
+    <path d="M360 534 Q660 507 982 534" stroke="#243447" stroke-width="8"/>
+    <path d="M350 551 Q660 526 1000 553" stroke="#d89a20" stroke-width="17" opacity=".44"/>
+    <g stroke="#243447" stroke-width="6">
+      <circle cx="450" cy="108" r="32" fill="#e9c46a"/>
+      <circle cx="535" cy="143" r="32" fill="#2a9d8f"/>
+      <circle cx="624" cy="212" r="32" fill="#2a9d8f"/>
+      <circle cx="709" cy="312" r="32" fill="#2a9d8f"/>
+      <circle cx="790" cy="447" r="32" fill="#e76f51"/>
+      <circle cx="869" cy="585" r="38" fill="#c14953"/>
+    </g>
+    <path d="M869 543 V626" stroke="#c14953" stroke-width="5" stroke-dasharray="9 11"/>
+    <circle cx="869" cy="585" r="57" stroke="#e9c46a" stroke-width="12" opacity=".72"/>
+  </g>
+
+  <g id="sample-clock" transform="translate(1120 93)" fill="none" stroke-linecap="round">
+    <circle cx="185" cy="185" r="155" fill="#fffaf0" fill-opacity=".56" stroke="#243447" stroke-width="6"/>
+    <circle cx="185" cy="185" r="132" stroke="#2a9d8f" stroke-width="4" stroke-dasharray="3 24"/>
+    <path d="M185 185 L185 85 M185 185 L270 223" stroke="#243447" stroke-width="9"/>
+    <circle cx="185" cy="185" r="15" fill="#c14953" stroke="#243447" stroke-width="5"/>
+    <path d="M18 410 H350" stroke="#243447" stroke-width="6" marker-end="url(#arrow-navy)"/>
+    <g stroke="#243447" stroke-width="4">
+      <path d="M52 393 V427 M118 393 V427 M184 393 V427 M250 393 V427 M316 393 V427"/>
+    </g>
+    <g fill="#2a9d8f" stroke="#243447" stroke-width="3">
+      <circle cx="52" cy="410" r="10"/>
+      <circle cx="118" cy="410" r="10"/>
+      <circle cx="184" cy="410" r="10"/>
+      <circle cx="250" cy="410" r="10"/>
+      <circle cx="316" cy="410" r="10"/>
+    </g>
+  </g>
+</svg>

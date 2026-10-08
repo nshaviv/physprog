@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="title description">
+  <title id="title">Orbital data and fitted ellipse</title>
+  <desc id="description">A dark astronomical field with a glowing star, measured orbital positions, an elliptical fitted orbit, and a small coordinate grid.</desc>
+  <defs>
+    <radialGradient id="space" cx="38%" cy="45%" r="78%">
+      <stop offset="0" stop-color="#263d68"/>
+      <stop offset=".54" stop-color="#121e39"/>
+      <stop offset="1" stop-color="#080e20"/>
+    </radialGradient>
+    <radialGradient id="sun">
+      <stop offset="0" stop-color="#fff9d8"/>
+      <stop offset=".18" stop-color="#ffd66e"/>
+      <stop offset=".48" stop-color="#f58b32" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#f58b32" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+
+  <rect width="960" height="640" rx="30" fill="url(#space)"/>
+  <g stroke="#8ea7d0" stroke-opacity=".14" stroke-width="1">
+    <path d="M80 80H880M80 160H880M80 240H880M80 320H880M80 400H880M80 480H880M80 560H880"/>
+    <path d="M80 50V590M180 50V590M280 50V590M380 50V590M480 50V590M580 50V590M680 50V590M780 50V590M880 50V590"/>
+  </g>
+  <g fill="#f7fbff" opacity=".8">
+    <circle cx="122" cy="111" r="1.8"/><circle cx="209" cy="90" r="1.2"/><circle cx="321" cy="160" r="1.6"/>
+    <circle cx="424" cy="88" r="1.1"/><circle cx="544" cy="138" r="2"/><circle cx="708" cy="86" r="1.4"/>
+    <circle cx="840" cy="150" r="1.5"/><circle cx="758" cy="259" r="1.1"/><circle cx="887" cy="348" r="1.8"/>
+    <circle cx="803" cy="531" r="1.2"/><circle cx="675" cy="568" r="1.8"/><circle cx="486" cy="530" r="1.1"/>
+    <circle cx="325" cy="575" r="1.5"/><circle cx="171" cy="487" r="1.2"/><circle cx="105" cy="364" r="1.6"/>
+  </g>
+  <ellipse cx="480" cy="324" rx="318" ry="174" transform="rotate(-20 480 324)" fill="none" stroke="#7fdbca" stroke-width="4" stroke-opacity=".9"/>
+  <ellipse cx="480" cy="324" rx="318" ry="174" transform="rotate(-20 480 324)" fill="none" stroke="#7fdbca" stroke-width="13" stroke-opacity=".12" filter="url(#soft)"/>
+  <g fill="#f89648" stroke="#fff2c7" stroke-width="2">
+    <circle cx="193" cy="309" r="7"/><circle cx="220" cy="233" r="6"/><circle cx="293" cy="171" r="7"/>
+    <circle cx="397" cy="142" r="6"/><circle cx="525" cy="158" r="7"/><circle cx="645" cy="218" r="6"/>
+    <circle cx="740" cy="300" r="7"/><circle cx="763" cy="384" r="6"/><circle cx="713" cy="448" r="7"/>
+    <circle cx="605" cy="491" r="6"/><circle cx="464" cy="505" r="7"/><circle cx="337" cy="474" r="6"/>
+    <circle cx="246" cy="404" r="7"/>
+  </g>
+  <g transform="translate(359 300)">
+    <circle r="86" fill="url(#sun)" filter="url(#soft)"/>
+    <circle r="27" fill="#ffd66e" filter="url(#glow)"/>
+    <circle r="18" fill="#fff9d8"/>
+  </g>
+  <g fill="#bcd4f4" font-family="Arial, Helvetica, sans-serif" letter-spacing="2">
+    <text x="695" y="536" font-size="18">MEASURED POSITIONS</text>
+    <text x="695" y="563" font-size="18" fill="#7fdbca">ELLIPTICAL MODEL</text>
+  </g>
+  <path d="M672 530h18" stroke="#f89648" stroke-width="5" stroke-linecap="round"/>
+  <path d="M672 557h18" stroke="#7fdbca" stroke-width="4"/>
+</svg>

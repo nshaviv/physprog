@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" role="img" aria-labelledby="title desc">
+  <title id="title">Measured voltage versus current</title>
+  <desc id="desc">Five voltage measurements rise approximately linearly with current.</desc>
+  <rect width="960" height="500" rx="24" fill="#ffffff"/>
+  <text x="72" y="48" fill="#132030" font-family="Arial, sans-serif" font-size="28" font-weight="700">Measurements: voltage versus current</text>
+  <text x="72" y="78" fill="#52606f" font-family="Arial, sans-serif" font-size="18">Before fitting, we first ask whether the data look approximately linear.</text>
+  <g stroke="#dce3ed" stroke-width="1.5">
+    <line x1="118" y1="120" x2="118" y2="410"/><line x1="118" y1="410" x2="890" y2="410"/>
+    <line x1="118" y1="338" x2="890" y2="338"/><line x1="118" y1="265" x2="890" y2="265"/><line x1="118" y1="193" x2="890" y2="193"/><line x1="118" y1="120" x2="890" y2="120"/>
+    <line x1="258" y1="120" x2="258" y2="410"/><line x1="398" y1="120" x2="398" y2="410"/><line x1="538" y1="120" x2="538" y2="410"/><line x1="678" y1="120" x2="678" y2="410"/><line x1="818" y1="120" x2="818" y2="410"/>
+  </g>
+  <g fill="#52606f" font-family="Arial, sans-serif" font-size="17" text-anchor="end"><text x="106" y="415">0.0</text><text x="106" y="343">0.7</text><text x="106" y="270">1.4</text><text x="106" y="198">2.1</text><text x="106" y="125">2.8</text></g>
+  <g fill="#52606f" font-family="Arial, sans-serif" font-size="17" text-anchor="middle"><text x="118" y="438">0.0</text><text x="258" y="438">0.1</text><text x="398" y="438">0.2</text><text x="538" y="438">0.3</text><text x="678" y="438">0.4</text><text x="818" y="438">0.5</text></g>
+  <text x="504" y="481" fill="#132030" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">current I [A]</text>
+  <text x="33" y="267" fill="#132030" font-family="Arial, sans-serif" font-size="20" text-anchor="middle" transform="rotate(-90 33 267)">voltage V [V]</text>
+  <g fill="#f36619" stroke="#ffffff" stroke-width="3"><circle cx="258" cy="356" r="9"/><circle cx="398" cy="305" r="9"/><circle cx="538" cy="252" r="9"/><circle cx="678" cy="203" r="9"/><circle cx="818" cy="152" r="9"/></g>
+  <g font-family="Arial, sans-serif" font-size="18" fill="#132030"><circle cx="710" cy="92" r="7" fill="#f36619"/><text x="726" y="98">measured data</text></g>
+</svg>

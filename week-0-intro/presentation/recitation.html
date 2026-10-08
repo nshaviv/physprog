@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 0 Orientation - From Source to a Running Program</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <style>
+    :root { --ink:#132030; --orange:#f36619; --green:#1e6e46; --violet:#5c3e91; --blue:#2879b9; --muted:#52606f; }
+    body { background:radial-gradient(circle at 86% 6%,#e9f8f1,#f8fbff 44%,#fff7ef); }
+    .reveal { font-family:Inter,Avenir,Helvetica,Arial,sans-serif; color:var(--ink); }
+    .reveal .slides section { box-sizing:border-box; padding:20px 58px; overflow:hidden; text-align:left; }
+    .reveal h1,.reveal h2,.reveal h3 { color:var(--ink); text-transform:none; letter-spacing:-.035em; margin:.08em 0 .3em; }
+    .reveal h1 { font-size:1.68em; } .reveal h2 { font-size:1.12em; } .reveal h3 { font-size:.62em; }
+    .reveal p,.reveal li { font-size:.52em; line-height:1.3; }
+    .accent { color:var(--orange); } .muted { color:var(--muted); }
+    .eyebrow { color:var(--orange); font-size:.34em; font-weight:700; letter-spacing:.08em; text-transform:uppercase; }
+    .tag { display:inline-block; padding:.22em .75em; border:2px solid var(--orange); border-radius:999px; color:var(--orange); background:#fff; font-size:.34em; font-weight:700; }
+    .grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:stretch; } .grid > * { min-width:0; }
+    .grid.three { grid-template-columns:repeat(3,1fr); } .grid.four { grid-template-columns:repeat(4,1fr); }
+    .card { background:rgba(255,255,255,.94); border:1px solid #dce3ed; border-left:7px solid var(--orange); border-radius:14px; padding:14px 18px; box-shadow:0 12px 30px rgba(19,32,48,.08); }
+    .physics { border-left-color:var(--violet); } .math { border-left-color:var(--green); } .check { border-left-color:var(--blue); }
+    .sequence { display:flex; gap:11px; align-items:stretch; justify-content:center; margin-top:.45em; }
+    .step { flex:1; min-height:115px; background:white; border-radius:14px; border-top:6px solid var(--orange); padding:12px; box-shadow:0 10px 24px rgba(19,32,48,.08); }
+    .step b { display:block; color:var(--orange); font-size:.67em; } .step span { font-size:.41em; line-height:1.22; display:block; }
+    .arrow { align-self:center; color:var(--orange); font-size:1.15em; }
+    .code { text-align:left; font-size:.42em; line-height:1.3; background:#101923; color:#edf4ff; padding:15px 19px; border-radius:12px; max-width:86%; margin:.35em auto; box-shadow:0 12px 28px rgba(19,32,48,.18); white-space:pre-wrap; overflow-wrap:anywhere; }
+  /* Shared code/output appearance: output differs only in background. */
+.reveal pre{background:#f2f7fc;color:#132238;border:1px solid #ccd3da;border-radius:4px;box-shadow:none;padding:14px 18px;}
+.reveal pre.output,.reveal .output pre{background:#f1faf1;color:#132238;border:1px solid #ccd3da;border-radius:4px;}
+.reveal .output{background:#f1faf1;border-left:1px solid #ccd3da;}
+.reveal .output code{background:transparent;color:inherit;}
+</style>
+</head>
+<body><div class="reveal"><div class="slides">
+  <section>
+    <span class="tag">77641 Physics Programming: Julia + Python</span>
+    <h1>Chapter 0 Orientation<br><span class="accent">From Source to a Running Program</span></h1>
+    <p class="muted">A short, unassessed orientation before Week 1—not a homework session.</p>
+  <p data-course-notebook-link="complete"><a href="../notebooks/recitation_00-en.ipynb">Complete recitation notebook</a></p></section>
+
+  <section data-transition="fade">
+    <p class="eyebrow">Compilation, plainly</p>
+    <h2>We write source instructions; the computer executes machine instructions</h2>
+    <div class="sequence"><div class="step"><b>Source code</b><span>Our readable instructions, saved in a file.</span></div><span class="arrow">&rarr;</span><div class="step"><b>Compile</b><span>Julia translates them into machine instructions.</span></div><span class="arrow">&rarr;</span><div class="step"><b>Processor</b><span>The CPU executes those instructions.</span></div></div>
+  </section>
+
+  <section data-transition="fade">
+    <p class="eyebrow">Do not confuse working modes</p>
+    <h2>The REPL is for inspection; the saved analysis is the reproducible record</h2>
+    <div class="grid"><div class="card"><h3>REPL</h3><p>Try an expression, inspect a value, and diagnose a small failure.</p></div><div class="card check"><h3>Script or notebook</h3><p>Preserve inputs, operations, figures, and conclusions in an order another person can rerun.</p></div></div>
+  </section>
+
+  <section data-transition="fade">
+    <p class="eyebrow">Traceability exercise</p>
+    <h2>Connect each output to its data, equation, and physical meaning</h2>
+    <div class="sequence"><div class="step"><b>Table column</b><span><code>voltage_V</code></span></div><span class="arrow">&rarr;</span><div class="step"><b>Variable</b><span><code>y</code></span></div><span class="arrow">&rarr;</span><div class="step"><b>Model</b><span>V = RI + V<sub>0</sub></span></div><span class="arrow">&rarr;</span><div class="step"><b>Claim</b><span>R with units and residual evidence.</span></div></div>
+  </section>
+
+  <section data-transition="fade">
+    <p class="eyebrow">Before accepting output</p>
+    <h2>Ask four questions of every computational result</h2>
+    <div class="grid four"><div class="card physics"><h3>Meaning</h3><p>What physical quantity does each value represent?</p></div><div class="card math"><h3>Units</h3><p>Are dimensions consistent throughout?</p></div><div class="card"><h3>Known case</h3><p>Does the program reproduce an answer we can predict?</p></div><div class="card check"><h3>Evidence</h3><p>Do the plot and residuals support the claim?</p></div></div>
+  </section>
+
+  <section data-transition="fade">
+    <p class="eyebrow">Repair protocol</p>
+    <h2>Record exact failures instead of paraphrasing them</h2>
+    <pre class="code"><code>1. Record the command or cell that was run.
+2. Copy the exact error and line number.
+3. Reduce the failure to the smallest reproducible step.
+4. Inspect file names, values, types, signs, and units.
+5. Change one thing and rerun the known test.</code></pre>
+  </section>
+
+  <section>
+    <p class="eyebrow">Next</p>
+    <h2>Week 1 begins the first complete laboratory analysis</h2>
+    <div class="grid"><div class="card physics"><h3>Lecture</h3><p>We will use a supplied Ohm's-law table and graph to connect data, a fit, residuals, and resistance.</p></div><div class="card check"><h3>This orientation</h3><p>There is no Chapter 0 homework. We carry forward the habit of keeping each step visible and checkable.</p></div></div>
+  </section>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/math/math.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>Reveal.initialize({hash:true,slideNumber:true,transition:"fade",plugins:[RevealMath.KaTeX,RevealHighlight]});</script>
+</body></html>

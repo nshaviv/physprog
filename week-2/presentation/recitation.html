@@ -1,0 +1,18 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Week 2 Recitation — pulled block</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css"></head><body><div class="reveal"><div class="slides">
+<section><h1>Week 2 Recitation</h1><h2>Friction follows impending motion</h2><p>20 minutes of guided work, then homework support.</p><p data-course-notebook-link="complete"><a href="../notebooks/recitation_02-en.ipynb">Complete recitation notebook</a></p></section>
+<section><h2>Choose a positive direction</h2><p>Take uphill as positive. Without friction, <span>\(T=P-mg\sin\theta\)</span>. If <span>\(T>0\)</span>, impending motion is uphill and friction is downhill; if <span>\(T<0\)</span>, it is the reverse.</p></section>
+<section><h2>Trace the branch</h2><pre><code class="language-julia">pull = 20.0      # N
+mass = 5.0       # kg
+angle = 20.0     # deg
+tendency = pull - mass * 9.81 * sind(angle)   # N
+if tendency &gt; 0
+    friction_direction = "downhill"
+elseif tendency &lt; 0
+    friction_direction = "uphill"
+else
+    friction_direction = "none"
+end
+println(friction_direction)</code></pre><pre class="output"><code>downhill</code></pre><p>Friction follows the tendency of motion, not the phrase "pulled up."</p></section>
+<section><h2>Checks</h2><p>At <span>\(T=0\)</span>, no friction is required. A horizontal plane requires no static friction. With zero friction, gravity accelerates downhill.</p></section>
+<section><h2>Homework studio</h2><p>Validate → compute the wall trajectory → classify rising/falling → test exact clearance. Invalid arguments throw <code>ArgumentError</code>; printing is not validation.</p></section>
+</div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/math/math.js"></script><script>Reveal.initialize({hash:true,plugins:[RevealMath.KaTeX]});</script></body></html>

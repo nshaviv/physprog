@@ -1,0 +1,66 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chapter 1 — Guided Ohm-law Fit</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css"><style>:root{--ink:#132030;--orange:#f36619;--green:#1e6e46;--violet:#5c3e91;--blue:#2879b9;--muted:#52606f}.reveal{font-family:Inter,Avenir,Arial,sans-serif;color:var(--ink)}.reveal .slides section{box-sizing:border-box;padding:24px 58px;text-align:left}.reveal h1,.reveal h2,.reveal h3{text-transform:none;color:var(--ink);letter-spacing:-.03em}.reveal h1{font-size:1.65em}.reveal h2{font-size:1.08em}.reveal h3{font-size:.62em}.reveal p,.reveal li{font-size:.51em;line-height:1.32}.tag{display:inline-block;border:2px solid var(--orange);border-radius:999px;padding:.2em .7em;color:var(--orange);font-size:.34em;font-weight:700}.accent{color:var(--orange)}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid.three{grid-template-columns:repeat(3,1fr)}.card{background:#fff;border:1px solid #dce3ed;border-left:7px solid var(--orange);border-radius:14px;padding:13px 17px;box-shadow:0 10px 25px #13203014}.physics{border-left-color:var(--violet)}.math{border-left-color:var(--green)}.check{border-left-color:var(--blue)}pre{font-size:.39em;line-height:1.3;background:#101923;color:#edf4ff;padding:14px 18px;border-radius:12px;white-space:pre-wrap}.output{background:#f0f8f3;color:var(--ink);border-left:6px solid var(--green)}table{font-size:.47em;margin:auto;border-collapse:collapse}td,th{padding:.35em .7em;border-bottom:1px solid #dce3ed}th{color:var(--orange)}img{max-height:365px;max-width:100%}@media(max-width:700px){.reveal .slides section{padding:18px 28px}.grid,.grid.three{grid-template-columns:1fr}.reveal p,.reveal li{font-size:.62em}}/* Shared code/output appearance: output differs only in background. */
+.reveal pre{background:#f2f7fc;color:#132238;border:1px solid #ccd3da;border-radius:4px;box-shadow:none;padding:14px 18px;}
+.reveal pre.output,.reveal .output pre{background:#f1faf1;color:#132238;border:1px solid #ccd3da;border-radius:4px;}
+.reveal .output{background:#f1faf1;border-left:1px solid #ccd3da;}
+.reveal .output code{background:transparent;color:inherit;}
+</style></head><body><div class="reveal"><div class="slides">
+<section><span class="tag">Chapter 1 · Julia 1.12.6</span><h1>A guided <span class="accent">Ohm-law fit</span></h1><p>Calculator expressions → variables → output and errors → one complete, scaffolded data analysis.</p><p data-course-notebook-link="complete"><a href="../notebooks/lecture_01-en.ipynb">Complete lecture notebook</a></p></section>
+<section><h2>VS Code: a displayed result is not <code>println</code></h2><pre><code class="language-julia">1 + 1
+println(1 + 1)</code></pre><pre class="output"><code>2</code></pre><p>The Julia extension evaluates an expression and displays its value. <code>println</code> deliberately writes text to the REPL/terminal, so we use it when a message or labelled result helps a reader.</p></section>
+<section><h2>Calculator first: precedence, functions, and notation</h2><pre><code class="language-julia">println(exp(1))
+println(sin(pi / 2))
+println(mod(17, 5))
+println(div(17, 5))</code></pre><pre class="output"><code>2.718281828459045
+1.0
+2
+3</code></pre><p><code>exp</code>, <code>sin</code>, <code>mod</code>, and <code>div</code> are function calls. Here <code>17 = 3*5 + 2</code>, so the quotient is 3 and the remainder is 2.</p></section>
+<section><h2>Notation: Unicode and powers</h2><pre><code class="language-julia">println(2pi)
+println((2 + 3) * 4)
+println(2^3)</code></pre><pre class="output"><code>6.283185307179586
+20
+8</code></pre><p>In <code>2pi</code> Julia reads the numeric coefficient as multiplication by <code>pi</code>. Type <kbd>\pi</kbd> then Tab for <code>π</code>; Julia accepts both <code>π</code> and <code>pi</code>.</p></section>
+<section><h2>Then name a value</h2><pre><code class="language-julia">x = 2
+y = 3
+println(x + y)
+println(x^2 + y^2)</code></pre><pre class="output"><code>5
+13</code></pre><p><code>=</code> assigns the current result; it is not a permanent algebraic identity. We keep identifiers unit-free and record each unit in a short trailing comment, for example <code>voltage = 2.0  # V</code>.</p></section>
+<section><h2>Question: is the conductor Ohmic here?</h2><div class="grid"><div class="card physics"><h3>Model</h3><p>With positive current and voltage, <code>V = RI</code>. The slope of voltage (V) versus current (A) has units V/A = Ω: resistance.</p></div><div class="card check"><h3>Regime and checks</h3><p>An ohmic, approximately fixed-state, weak-field conductor is assumed. At <code>I=0</code>, ideal <code>V=0</code>. Heating, contacts, and non-ohmic devices can invalidate the line.</p></div></div></section>
+<section><h2>Observations are not the fitted model</h2><table><tr><th>I (A)</th><td>0.10</td><td>0.20</td><td>0.30</td><td>0.40</td><td>0.50</td></tr><tr><th>V (V)</th><td>0.52</td><td>1.01</td><td>1.52</td><td>2.00</td><td>2.49</td></tr></table><p>Predict: increasing and nearly straight. We supply the vector and fit recipe line by line this week; vector and fitting mastery comes later.</p></section>
+<section><h2>Supplied workflow, steps 1–5: load, inspect, and plot</h2><pre><code class="language-julia">using CSV, DataFrames, Plots</code></pre><p>Step 1: the program states which installed tools it needs.</p><pre><code class="language-julia">data = CSV.read("ohm_law.csv", DataFrame)
+println(first(data, 5))</code></pre><p>Step 2: open the file and inspect its first five rows.</p><pre><code class="language-julia">current = data.current_A   # A
+voltage = data.voltage_V   # V</code></pre><p>Step 3: extract the two columns into unit-free names whose unit lives in a trailing comment.</p><pre><code class="language-julia">scatter(current, voltage,
+    xlabel="current I [A]", ylabel="voltage V [V]",
+    label="measurements", markerstrokewidth=0)</code></pre><p>Step 4: plot the measurements before fitting anything.</p><pre><code class="language-julia">values = [1, 2, 3]
+squared = values .^ 2     # [1, 4, 9]</code></pre><p>Step 5: a dot on an operator tells Julia to apply it element by element.</p></section>
+<section><h2>Copy, run, and interpret the supplied fit</h2><pre><code class="language-julia">n = length(current)
+I_bar = sum(current) / n   # A
+V_bar = sum(voltage) / n   # V
+dI = current .- I_bar      # A
+dV = voltage .- V_bar      # V
+resistance = sum(dI .* dV) / sum(dI .^ 2)   # ohm
+offset = V_bar - resistance * I_bar   # V</code></pre><pre class="output"><code>resistance = 4.93 ohm
+offset = 0.029 V</code></pre><p>These are the direct linear-fit formulas with every quantity left visible. <code>length</code> counts the measurements, <code>sum</code> adds a vector, and the dotted operators act element by element.</p></section>
+<section><h2>Read outputs; inspect the two figures</h2><div class="grid"><div><img src="ohm-measurements.svg" alt="Ohm-law measurements and fitted line"><p>Markers: observations. Line: model prediction.</p></div><div><img src="ohm-fit-residuals.svg" alt="Ohm-law fit residuals plotted against current"><p><code>residual = measured − predicted</code>; a systematic pattern would question the model.</p></div></div><pre class="output"><code>predicted = [0.522, 1.015, 1.508, 2.001, 2.494]
+residuals = [-0.002, -0.005, 0.012, -0.001, -0.004]  # V</code></pre></section>
+<section><h2>Steps 6–7: report the fit and inspect residuals</h2><pre><code class="language-julia">plot()
+plot!([0, 1], [1, 0])
+savefig("example.png")
+rounded = round(1.2345, digits=2)
+println("value = $(rounded)")</code></pre><pre class="output"><code>value = 1.23</code></pre><p>A tiny example of <code>plot!</code>, <code>savefig</code>, and string interpolation.</p><pre><code class="language-julia">scatter(current, voltage,
+    xlabel="current I [A]", ylabel="voltage V [V]",
+    label="measurements", markerstrokewidth=0)
+plot!(current, resistance .* current .+ offset,
+    label="least-squares model", linewidth=2)
+savefig("ohm_law_fit.png")
+
+println("R = $(round(resistance, digits=3)) ohm")
+println("offset = $(round(offset, digits=3)) V")</code></pre><pre class="output"><code>R = 4.93 ohm
+offset = 0.029 V</code></pre><p>The full reporting block re-creates the measurement scatter and adds the fitted model.</p><pre><code class="language-julia">residual = voltage .- (resistance .* current .+ offset)   # V
+scatter(current, residual,
+    xlabel="current I [A]", ylabel="residual V - model [V]",
+    label="residuals", markerstrokewidth=0)
+hline!([0], label="zero residual")
+savefig("ohm_law_residuals.png")</code></pre><p>Plot the residuals to check whether they fluctuate around zero without an obvious pattern.</p></section>
+<section><h2>Errors are information</h2><div class="grid three"><div class="card"><h3>Syntax</h3><p><code>voltage =</code> is incomplete; Julia cannot parse it.</p></div><div class="card check"><h3>Runtime</h3><p><code>voltagee</code> names a value that was never defined.</p></div><div class="card physics"><h3>Logical/scientific</h3><p><code>I/V</code> runs, but A/V is conductance—not resistance. Units and known cases help.</p></div></div></section>
+<section><h2>Handoff: practise, extend, and look ahead</h2><div class="grid three"><div class="card"><h3>Recitation</h3><p>Use the supplied recipe on spring force versus extension. The slope is a spring constant in N/m.</p></div><div class="card physics"><h3>Core HW</h3><p>Fit free-fall distance as <code>y=a*t^2+b</code>, report <code>g=2a</code>, and inspect the observation/model and residual figures.</p></div><div class="card math"><h3>Bonus · Going further</h3><p>Style an honest Ohm-law figure; optionally explore Lissajous curves with the supplied plotting recipe.</p></div></div><p><a href="../notebooks/lecture_01-en.ipynb">Runnable lecture notebook</a> · Next chapter: values, Boolean conditions, and a block on an incline.</p></section>
+<section><h2>Optional mathematics: deriving the fit</h2><div class="card math"><h3>Least-squares derivation</h3><p>Minimize S(R,b) = Σ[Vᵢ − (RIᵢ+b)]². Setting the derivative with respect to b to zero gives b = V̄ − RĪ: the line passes through the mean point.</p><p>Setting the derivative with respect to R to zero and substituting b gives Σ(Iᵢ−Ī)(Vᵢ−V̄) = R Σ(Iᵢ−Ī)². Divide to obtain the slope formula.</p></div><p>If all currents are equal, no unique slope is determined. The full derivation is restored in Chapter 1. This is optional background, separate from the one-third-point figure bonus.</p></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script><script>Reveal.initialize({hash:true,slideNumber:true,transition:"fade"});</script></body></html>

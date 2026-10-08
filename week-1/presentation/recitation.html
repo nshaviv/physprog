@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Week 1 Studio — Expressions and Homework Start</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css">
+  <style>
+    :root{--ink:#132030;--orange:#f36619;--green:#1e6e46;--violet:#5c3e91;--muted:#52606f}
+    .reveal{font-family:Inter,Avenir,Helvetica,Arial,sans-serif;color:var(--ink)}.reveal .slides section{box-sizing:border-box;padding:30px 60px;text-align:left}
+    .reveal h1,.reveal h2,.reveal h3{text-transform:none;color:var(--ink);letter-spacing:-.03em}.reveal h1{font-size:1.65em}.reveal h2{font-size:1.08em}.reveal h3{font-size:.62em}
+    .reveal p,.reveal li{font-size:.51em;line-height:1.32}.accent{color:var(--orange)}.muted{color:var(--muted)}
+    .tag{display:inline-block;border:2px solid var(--orange);border-radius:999px;padding:.2em .7em;color:var(--orange);font-size:.34em;font-weight:700}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid.three{grid-template-columns:repeat(3,1fr)}
+    .card{background:white;border:1px solid #dce3ed;border-left:7px solid var(--orange);border-radius:14px;padding:14px 18px;box-shadow:0 10px 25px #13203014}.physics{border-left-color:var(--violet)}.check{border-left-color:#2879b9}.math{border-left-color:var(--green)}
+    pre.code{font-size:.42em;line-height:1.32;background:#101923;color:#edf4ff;padding:15px 19px;border-radius:12px;white-space:pre-wrap;width:86%;margin:.35em auto}pre.output{font-size:.34em;background:#f0f8f3;color:var(--ink);padding:10px 16px;border-left:6px solid var(--green);border-radius:8px;width:86%;margin:.1em auto}
+    .time{color:var(--orange);font-weight:700}.notice{font-weight:700;color:var(--orange)}a{color:#2879b9}
+  /* Shared code/output appearance: output differs only in background. */
+.reveal pre{background:#f2f7fc;color:#132238;border:1px solid #ccd3da;border-radius:4px;box-shadow:none;padding:14px 18px;}
+.reveal pre.output,.reveal .output pre{background:#f1faf1;color:#132238;border:1px solid #ccd3da;border-radius:4px;}
+.reveal .output{background:#f1faf1;border-left:1px solid #ccd3da;}
+.reveal .output code{background:transparent;color:inherit;}
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+  <section>
+    <span class="tag">Week 1 · 17-minute instructor-led studio</span>
+    <h1>Fit one spring.<br><span class="accent">Then start HW 1.</span></h1>
+    <p>Read a supplied CSV, interpret a slope in N/m, and make one residual check.</p>
+  <p data-course-notebook-link="complete"><a href="../notebooks/recitation_01-en.ipynb">Complete recitation notebook</a></p></section>
+
+  <section>
+    <h2><span class="time">0–3 min</span> · Read and predict</h2>
+    <div class="grid"><div class="card physics"><h3>Model</h3><p>In the elastic regime, <strong>F=kx</strong>. Extension is m, force is N, and slope k is N/m.</p></div><div class="card check"><h3>CSV and check</h3><p>A CSV is a comma-separated text table. The supplied notebook reads <code>spring_force.csv</code>. Predict F=0 at x=0.</p></div></div>
+    <pre><code class="language-julia">using CSV, DataFrames
+spring = CSV.read("reveal/week01/spring_force.csv", DataFrame)
+x = spring.extension_m
+y = spring.force_N
+println(length(x), " measurements")</code></pre><pre class="output"><code>6 measurements</code></pre>
+    <p class="muted">Independent CSV work begins in Week 7.</p>
+  </section>
+
+  <section>
+    <h2><span class="time">3–11 min</span> · Guided spring fit</h2>
+    <pre><code class="language-julia">x = [0.00, 0.02, 0.04, 0.06, 0.08, 0.10]   # m
+y = [0.01, 0.39, 0.81, 1.18, 1.61, 1.99]    # N
+n = length(x)
+xbar = sum(x) / n; ybar = sum(y) / n
+slope = sum((x .- xbar) .* (y .- ybar)) / sum((x .- xbar).^2)
+intercept = ybar - slope * xbar
+println("slope = $(round(slope; digits=1)) N/m")
+println("intercept = $(round(intercept; digits=4)) N")</code></pre>
+    <pre class="output"><code>slope = 19.9 N/m
+intercept = 0.0033 N</code></pre>
+    <p>We read the supplied recipe's result; we do not redesign fitting today.</p>
+  </section>
+
+  <section>
+    <h2><span class="time">11–15 min</span> · Check and interpret</h2>
+    <div class="grid"><div class="card"><h3>Residuals</h3><p>Do they lie on both sides of zero?</p></div><div class="card physics"><h3>Limits</h3><p>Preload, hysteresis, or leaving the elastic regime can break the line.</p></div></div>
+    <p class="notice">Checkpoint: why are the slope units N/m?</p>
+  </section>
+
+  <section>
+    <h2><span class="time">15–17 min</span> · Open the core</h2>
+    <div class="grid"><div class="card check"><h3>Data</h3><p><code>t_s</code> and <code>y_m</code></p></div><div class="card math"><h3>Model</h3><p><code>y=a*t^2+b</code>; <code>g=2a</code></p></div></div>
+    <p><a href="../notebooks/recitation_01-en.ipynb">Open the spring studio notebook</a> · <a href="../notebooks/recitation_01-en.ipynb">Open the homework notebook</a></p>
+  </section>
+
+  <section>
+    <h2><span class="time">After 17 min</span> · Homework only</h2>
+    <p class="notice">Instructor-led material ends now.</p>
+    <p>The remainder is supported work on the separate core homework. No second recitation activity; bonus remains separate and optional.</p>
+  </section>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+<script>Reveal.initialize({hash:true,slideNumber:true,plugins:[RevealHighlight]});</script>
+</body>
+</html>

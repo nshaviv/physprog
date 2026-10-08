@@ -1,0 +1,19 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>תרגול שבוע 3 — קירור עד סף</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css"><style>html,body{direction:rtl}.reveal{font-family:Arial;color:#132238}.reveal .slides section{direction:rtl;text-align:right}.reveal pre,.reveal pre code{font-size:.58em;direction:ltr;text-align:left}.reveal code,bdi{direction:ltr;unicode-bidi:isolate}.reveal p,.reveal li{font-size:.78em;line-height:1.4}/* Shared code/output appearance: output differs only in background. */
+.reveal pre{background:#f2f7fc;color:#132238;border:1px solid #ccd3da;border-radius:4px;box-shadow:none;padding:14px 18px;}
+.reveal pre.output,.reveal .output pre{background:#f1faf1;color:#132238;border:1px solid #ccd3da;border-radius:4px;}
+.reveal .output{background:#f1faf1;border-left:1px solid #ccd3da;}
+.reveal .output code{background:transparent;color:inherit;}
+</style></head><body><div class="reveal"><div class="slides">
+<section><h1>תרגול שבוע 3</h1><h2>קירור עד לסף</h2><p>נעקוב אחר תנאי, עדכון ונקודת עצירה.</p><p data-course-notebook-link="complete"><a href="../notebooks/recitation_03-he.ipynb">מחברת התרגול המלאה</a></p></section>
+<section><h2>תזכורת</h2><p>לולאת <bdi>for</bdi> עוברת על ערכים ידועים; לולאת <bdi>while</bdi> נעצרת כשהתנאי שקר. בכל לולאה נזהה אתחול, תנאי, עדכון ונימוק עצירה.</p></section>
+<section><h2>קירור נדגם</h2><p>בכל דקה Tₖ₊₁ = 0.9Tₖ. נחפש את הדגימה הראשונה שמגיעה ל-81°C; שוויון נחשב להגעה לסף.</p><pre><code class="language-julia">let temperature = 100.0   # C
+threshold = 81.0          # C
+minute = 0
+while temperature > threshold
+    temperature = 0.9 * temperature
+    minute = minute + 1
+end
+println((minute, temperature))
+end</code></pre><pre class="output"><code>(2, 81.0)</code></pre><p>הפלט הוא <bdi>(2, 81.0)</bdi>. ללא עדכון הטמפרטורה, הלולאה אינה נעצרת.</p></section>
+<section><h2>מעקב והעברה</h2><p>בדגימה 0: 100; בדגימה 1: 90; בדגימה 2: 81. התנאי המחמיר <bdi>temperature &gt; threshold</bdi> עוצר בדיוק בשוויון.</p><p>בעבודה הנתמכת נתחיל את מסלול המרפסת: נשמור <bdi>t, x, y, vx, vy</bdi>, נבדוק אורכים שווים ודגימת נחיתה ראשונה, ונשווה <bdi>dt</bdi> ל-<bdi>dt/2</bdi>.</p><p><a href="../notebooks/recitation_03-he.ipynb">פתחו את מחברת התרגול</a> · <a href="../HW3-he.pdf">פתחו את תרגיל הבית 3</a></p></section>
+</div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script><script>Reveal.initialize({hash:true,slideNumber:true,plugins:[RevealHighlight]});</script></body></html>

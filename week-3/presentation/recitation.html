@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Week 3 Recitation — Cooling Threshold</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css"><style>.reveal{font-family:Arial;color:#132238}.reveal pre{font-size:.58em}.reveal p,.reveal li{font-size:.78em;line-height:1.4}/* Shared code/output appearance: output differs only in background. */
+.reveal pre{background:#f2f7fc;color:#132238;border:1px solid #ccd3da;border-radius:4px;box-shadow:none;padding:14px 18px;}
+.reveal pre.output,.reveal .output pre{background:#f1faf1;color:#132238;border:1px solid #ccd3da;border-radius:4px;}
+.reveal .output{background:#f1faf1;border-left:1px solid #ccd3da;}
+.reveal .output code{background:transparent;color:inherit;}
+</style></head><body><div class="reveal"><div class="slides">
+<section><h1>Week 3 recitation</h1><h2>Cooling to a threshold</h2><p>Trace the condition, update, and stopping point.</p><p><a href="../notebooks/recitation_03-en.ipynb">Open the notebook</a></p><p data-course-notebook-link="complete"><a href="../notebooks/recitation_03-en.ipynb">Complete recitation notebook</a></p></section>
+<section><h2>Quick recap</h2><ul><li><code>for</code>: known values; <code>while</code>: stop when a condition is false.</li><li>Every while loop needs initialization, condition, update, and a termination argument.</li><li>Vectors use 1-based indexing; use <code>end</code>, <code>length</code>, <code>eachindex</code>, and <code>push!</code>.</li></ul></section>
+<section><h2>Sampled cooling</h2><p>At each minute, <code>Tₖ₊₁ = 0.9Tₖ</code>. We seek the first sample that reaches 81 °C; equality counts. This is a discrete model, not a derivation of Newton cooling.</p><pre><code class="language-julia">let temperature = 100.0   # C
+threshold = 81.0          # C
+minute = 0
+while temperature &gt; threshold
+    temperature = 0.9 * temperature
+    minute = minute + 1
+end
+println((minute, temperature))
+end</code></pre><p>Output: <code>(2, 81.0)</code>.</p></section>
+<section><h2>Trace it</h2><table><tr><th>sample</th><th>temperature [°C]</th></tr><tr><td>0</td><td>100</td></tr><tr><td>1</td><td>90</td></tr><tr><td>2</td><td>81</td></tr></table><p>The strict condition <code>temperature &gt; threshold</code> stops at equality. If the update is missing, the loop does not terminate.</p></section>
+<section><h2>Supported work</h2><p>Begin the balcony trajectory task: store <code>t, x, y, vx, vy</code>, include the first sampled <code>y ≤ 0</code>, and compare two timesteps. Function definitions come in Week 5.</p></section>
+</div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script><script>Reveal.initialize({hash:true,slideNumber:true});</script></body></html>

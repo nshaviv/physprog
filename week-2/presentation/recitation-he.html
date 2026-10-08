@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>תרגול שבוע 2 — גוף נמשך במעלה מישור</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css"><style>html,body{direction:rtl}.reveal{font-family:Arial,sans-serif;color:#132030}.reveal .slides section{direction:rtl;text-align:right}.reveal pre,.reveal code{direction:ltr;unicode-bidi:isolate;text-align:left}.reveal p,.reveal li{font-size:.7em;line-height:1.4}bdi{unicode-bidi:isolate}/* Shared code/output appearance: output differs only in background. */
+.reveal pre{background:#f2f7fc;color:#132238;border:1px solid #ccd3da;border-radius:4px;box-shadow:none;padding:14px 18px;}
+.reveal pre.output,.reveal .output pre{background:#f1faf1;color:#132238;border:1px solid #ccd3da;border-radius:4px;}
+.reveal .output{background:#f1faf1;border-left:1px solid #ccd3da;}
+.reveal .output code{background:transparent;color:inherit;}
+</style></head>
+<body><div class="reveal"><div class="slides">
+  <section><h1>תרגול שבוע 2</h1><h2>החיכוך מתנגד לתנועה המסתמנת</h2><p>עד 20 דקות של עבודה מונחית, ולאחריהן תמיכה בתרגיל הבית.</p><p data-course-notebook-link="complete"><a href="../notebooks/recitation_02-he.ipynb">מחברת התרגול המלאה</a></p></section>
+  <section><h2>0–5 דקות: נתונים וחיזוי</h2><p>עבור <bdi>P = 20 N</bdi>, <bdi>m = 5 kg</bdi> ו-<bdi>θ = 20°</bdi>, נחשב תחילה <bdi>T = P − mg sin θ</bdi>. ללא חיכוך, לאיזה כיוון הגוף יתחיל לנוע?</p><p>נבחר מעלה המישור כחיובי. אם <bdi>T &gt; 0</bdi>, הנטייה היא לעלות והחיכוך פונה מטה; אם <bdi>T &lt; 0</bdi>, הנטייה היא לרדת והחיכוך פונה מעלה.</p></section>
+  <section><h2>עוקבים אחר הענף</h2><p>בקוד נשמור את הכוח בשם <bdi>pull</bdi>, את המסה ב־<bdi>mass</bdi> ואת הזווית ב־<bdi>angle</bdi>; הנטייה היא <bdi>tendency</bdi>.</p><pre><code class="language-julia">pull = 20.0      # N
+mass = 5.0       # kg
+angle = 20.0     # deg
+tendency = pull - mass * 9.81 * sind(angle)   # N
+if tendency &gt; 0
+    friction_direction = "downhill"
+elseif tendency &lt; 0
+    friction_direction = "uphill"
+else
+    friction_direction = "none"
+end
+println(friction_direction)</code></pre><pre class="output"><code>downhill</code></pre><p>החיכוך מתנגד לנטיית התנועה, לא למילה „נמשך”.</p></section>
+  <section><h2>5–14 דקות: מודל ובדיקות</h2><p>החיכוך הסטטי מחזיק כאשר <bdi>|T| ≤ μₛmg cos θ</bdi>; אחרת החיכוך הקינטי מתנגד לנטייה. המודל מניח חיכוך קולון, מגע קשיח ומישור קבוע.</p><ul><li>כאשר <bdi>T = 0</bdi>, אין צורך בחיכוך.</li><li>במישור אופקי אין צורך בחיכוך סטטי.</li><li>ללא חיכוך הכבידה מאיצה את הגוף במורד המישור.</li></ul></section>
+  <section><h2>14–20 דקות: מעבר לתרגיל הבית</h2><p>נאמת קלט, נחשב את מסלול הקליע האנליטי ללא גרר עד לקיר, נסווג עלייה או ירידה, ונבדוק מעבר בגובה שווה. קלט לא תקין מעלה <code>ArgumentError</code>; הדפסה אינה אימות.</p><p><a href="../notebooks/recitation_02-he.ipynb">פתחו את מחברת התרגול</a> · <a href="../HW2-he.pdf">פתחו את תרגיל הבית 2</a></p><p>אחרי 20 דקות נקדיש את הזמן הנותר לעבודה נתמכת על התרגיל בלבד.</p></section>
+</div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script><script>Reveal.initialize({hash:true,slideNumber:true,plugins:[RevealHighlight]});</script></body></html>

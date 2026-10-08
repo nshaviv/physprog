@@ -1,0 +1,66 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>פרק 1 — התאמת חוק אוהם</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css"><style>:root{--ink:#132030;--orange:#f36619;--green:#1e6e46;--violet:#5c3e91;--blue:#2879b9}.reveal{font-family:Arial,sans-serif;color:var(--ink)}.reveal .slides section{box-sizing:border-box;padding:24px 58px;direction:rtl;text-align:right}.reveal h1,.reveal h2,.reveal h3{text-transform:none;color:var(--ink)}.reveal h1{font-size:1.65em}.reveal h2{font-size:1.08em}.reveal h3{font-size:.62em}.reveal p,.reveal li{font-size:.51em;line-height:1.32}.tag{display:inline-block;border:2px solid var(--orange);border-radius:999px;padding:.2em .7em;color:var(--orange);font-size:.34em;font-weight:700}.accent{color:var(--orange)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid.three{grid-template-columns:repeat(3,1fr)}.card{background:#fff;border:1px solid #dce3ed;border-right:7px solid var(--orange);border-radius:14px;padding:13px 17px;box-shadow:0 10px 25px #13203014}.physics{border-right-color:var(--violet)}.math{border-right-color:var(--green)}.check{border-right-color:var(--blue)}pre,code{direction:ltr;unicode-bidi:isolate;text-align:left}pre{font-size:.39em;line-height:1.3;background:#101923;color:#edf4ff;padding:14px 18px;border-radius:12px;white-space:pre-wrap}.output{background:#f0f8f3;color:var(--ink);border-right:6px solid var(--green)}img{max-height:365px;max-width:100%}@media(max-width:700px){.reveal .slides section{padding:18px 28px}.grid,.grid.three{grid-template-columns:1fr}.reveal p,.reveal li{font-size:.62em}}/* Shared code/output appearance: output differs only in background. */
+.reveal pre{background:#f2f7fc;color:#132238;border:1px solid #ccd3da;border-radius:4px;box-shadow:none;padding:14px 18px;}
+.reveal pre.output,.reveal .output pre{background:#f1faf1;color:#132238;border:1px solid #ccd3da;border-radius:4px;}
+.reveal .output{background:#f1faf1;border-left:1px solid #ccd3da;}
+.reveal .output code{background:transparent;color:inherit;}
+</style></head><body><div class="reveal"><div class="slides">
+<section><span class="tag">פרק 1 · Julia 1.12.6</span><h1>התאמה מודרכת של <span class="accent">חוק אוהם</span></h1><p>ביטויי מחשבון → משתנים → פלט ושגיאות → ניתוח נתונים שלם ומתווך.</p><p data-course-notebook-link="complete"><a href="../notebooks/lecture_01-he.ipynb">מחברת ההרצאה המלאה</a></p></section>
+<section><h2>VS Code: תוצאה מוצגת אינה <code>println</code></h2><div class="grid"><div><pre><code class="language-julia">1 + 1
+println(1 + 1)</code></pre><pre class="output"><code>2</code></pre></div><div><p>השורה הראשונה מוערכת ומציגה את ערכה (<code>2</code>). השורה השנייה כותבת במפורש למסוף.</p><p>סקריפט עשוי להעריך ביטויים רבים בלי להציגם; נשתמש ב־<code>println</code> לדוח מכוון.</p></div></div></section>
+<section><h2>קודם מחשבון: קדימויות ופונקציות</h2><pre><code class="language-julia">println(exp(1))
+println(sin(pi / 2))
+println(mod(17, 5))
+println(div(17, 5))</code></pre><pre class="output"><code>2.718281828459045
+1.0
+2
+3</code></pre><pre><code class="language-julia">println(2pi)
+println((2 + 3) * 4)
+println(2^3)</code></pre><pre class="output"><code>6.283185307179586
+20
+8</code></pre><p>סוגריים קובעים קיבוץ; <code>17 = 3*5 + 2</code> ולכן <code>div</code> נותנת 3 ו־<code>mod</code> נותנת 2. ב־VS Code הקלידו <kbd>\pi</kbd> ואז Tab לקבלת <code>π</code>; <code>Julia</code> מקבלת גם <code>π</code> וגם <code>pi</code>.</p></section>
+<section><h2>שמות לערכים לפני הפיזיקה</h2><pre><code class="language-julia">x = 2
+y = 3
+println(x + y)
+println(x^2 + y^2)</code></pre><pre class="output"><code>5
+13</code></pre><p><code>x = 2</code> מצמידה שם לערך; זו הוראה ולא זהות אלגברית. נשמור שמות נקיים מסיומות יחידה ונתעד כל יחידה בהערה קצרה, למשל <code>voltage = 2.0  # V</code>.</p></section>
+<section><h2>השאלה: האם המוליך אוהמי כאן?</h2><div class="grid"><div class="card physics"><h3>מודל</h3><p><code>V = RI</code>. שיפוע מתח (V) מול זרם (A) הוא V/A = Ω, כלומר התנגדות.</p></div><div class="card check"><h3>תחום ובדיקה</h3><p>מניחים מוליך אוהמי במצב קבוע בקירוב ובשדה חלש. ב־<code>I=0</code> החוק האידיאלי נותן <code>V=0</code>; חימום ומגעים עלולים לשבור את המודל.</p></div></div></section>
+<section><h2>תצפיות אינן המודל המותאם</h2><p>נריץ מתכון נתון; הזרם והמתח נשמרו ב־<code>current</code> וב־<code>voltage</code>. שליטה עצמאית בווקטורים ובהתאמה תגיע בהמשך.</p><pre><code class="language-julia">n = length(current)
+I_bar = sum(current) / n   # A
+V_bar = sum(voltage) / n   # V
+dI = current .- I_bar      # A
+dV = voltage .- V_bar      # V
+resistance = sum(dI .* dV) / sum(dI .^ 2)   # ohm
+offset = V_bar - resistance * I_bar   # V</code></pre></section>
+<section><h2>נקרא פלט ונבדוק את שני האיורים</h2><div class="grid"><div><img src="ohm-measurements.svg" alt="מדידות חוק אוהם וקו ההתאמה"><p>סמנים: תצפיות; קו: תחזית המודל.</p></div><div><img src="ohm-fit-residuals.svg" alt="שאריות התאמת חוק אוהם"><p><code>residual = measured − predicted</code>; תבנית שיטתית מערערת את המודל.</p></div></div><pre class="output"><code>R = 4.93 ohm
+offset = 0.029 V
+residual = [-0.002, -0.005, 0.012, -0.001, -0.004]  # V</code></pre></section>
+<section><h2>שגיאות הן מידע</h2><div class="grid three"><div class="card"><h3>תחביר</h3><p><code>resistance =</code> אינו שלם.</p></div><div class="card check"><h3>זמן ריצה</h3><p><code>resistence</code> הוא שם שלא הוגדר.</p></div><div class="card physics"><h3>לוגית/מדעית</h3><p><code>current / voltage</code> רץ, אך A/V היא מוליכות ולא התנגדות.</p></div></div></section>
+<section><h2>כל הקוד בפרק: מהנתונים עד השאריות</h2><p>קובץ ה־<code>CSV</code> שסופק מתחיל כך (זרם באמפר ומתח בוולט):</p><pre><code>current_A,voltage_V
+0.10,0.52
+0.20,1.01</code></pre><pre><code class="language-julia">using CSV, DataFrames, Plots</code></pre><pre><code class="language-julia">data = CSV.read("ohm_law.csv", DataFrame)
+println(first(data, 5))</code></pre><pre><code class="language-julia">current = data.current_A   # A
+voltage = data.voltage_V   # V</code></pre><pre><code class="language-julia">scatter(current, voltage,
+    xlabel="current I [A]", ylabel="voltage V [V]",
+    label="measurements", markerstrokewidth=0)</code></pre></section>
+<section><h2>כל הקוד בפרק: פעולות מנוקדות, דיווח ושאריות</h2><pre><code class="language-julia">values = [1, 2, 3]
+squared = values .^ 2     # [1, 4, 9]</code></pre><pre><code class="language-julia">plot()
+plot!([0, 1], [1, 0])
+savefig("example.png")
+rounded = round(1.2345, digits=2)
+println("value = $(rounded)")</code></pre><pre class="output"><code>value = 1.23</code></pre><pre><code class="language-julia">scatter(current, voltage,
+    xlabel="current I [A]", ylabel="voltage V [V]",
+    label="measurements", markerstrokewidth=0)
+plot!(current, resistance .* current .+ offset,
+    label="least-squares model", linewidth=2)
+savefig("ohm_law_fit.png")
+
+println("R = $(round(resistance, digits=3)) ohm")
+println("offset = $(round(offset, digits=3)) V")</code></pre><pre class="output"><code>R = 4.93 ohm
+offset = 0.029 V</code></pre><pre><code class="language-julia">residual = voltage .- (resistance .* current .+ offset)   # V
+scatter(current, residual,
+    xlabel="current I [A]", ylabel="residual V - model [V]",
+    label="residuals", markerstrokewidth=0)
+hline!([0], label="zero residual")
+savefig("ohm_law_residuals.png")</code></pre></section>
+<section><h2>העברה: תרגול והמשך</h2><div class="grid three"><div class="card"><h3>תרגול</h3><p>אותו מתכון לקפיץ; השיפוע הוא N/m.</p></div><div class="card physics"><h3>תרגיל בית</h3><p>התאמת נפילה חופשית <code>y=a*t^2+b</code>, אומדן <code>g=2a</code> וגרפי מודל/שאריות.</p></div><div class="card math"><h3>בונוס · להעמקה</h3><p>עיצוב איור אוהם כן; עקומות Lissajous הן חקירה אופציונלית.</p></div></div><p><a href="../notebooks/lecture_01-he.ipynb">מחברת ההרצאה</a> · בפרק הבא: טיפוסים, בוליאנים ותנאים.</p></section>
+<section><h2>רקע מתמטי לבחירה: גזירת ההתאמה</h2><div class="card math"><h3>גזירת התאמת ריבועים פחותים</h3><p>נמזער S(R,b) = Σ[Vᵢ − (RIᵢ+b)]². איפוס הנגזרת לפי b נותן b = V̄ − RĪ: הישר עובר בנקודת הממוצעים.</p><p>איפוס הנגזרת לפי R והצבת b נותנים Σ(Iᵢ−Ī)(Vᵢ−V̄) = R Σ(Iᵢ−Ī)². חלוקה נותנת את נוסחת השיפוע.</p></div><p>אם כל הזרמים שווים אין שיפוע יחיד. הגזירה המלאה נמצאת בתיבה בפרק 1; זהו רקע לבחירה, ולא הבונוס המזכה בשליש נקודה.</p></section></div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script><script>Reveal.initialize({hash:true,slideNumber:true,transition:"fade",plugins:[RevealHighlight]});</script></body></html>
