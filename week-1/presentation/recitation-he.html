@@ -41,7 +41,7 @@
   <section>
     <h2><span class="time">3–11 דקות</span> · קריאה והתאמה</h2>
     <pre class="code"><code class="language-julia">using CSV, DataFrames
-spring = CSV.read("reveal/week01/spring_force.csv", DataFrame)
+spring = CSV.read("assets/data/spring_force.csv", DataFrame)
 x = spring.extension_m
 y = spring.force_N
 println(length(x), " measurements")</code></pre>

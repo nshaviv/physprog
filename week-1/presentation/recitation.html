@@ -35,7 +35,7 @@
     <h2><span class="time">0–3 min</span> · Read and predict</h2>
     <div class="grid"><div class="card physics"><h3>Model</h3><p>In the elastic regime, <strong>F=kx</strong>. Extension is m, force is N, and slope k is N/m.</p></div><div class="card check"><h3>CSV and check</h3><p>A CSV is a comma-separated text table. The supplied notebook reads <code>spring_force.csv</code>. Predict F=0 at x=0.</p></div></div>
     <pre><code class="language-julia">using CSV, DataFrames
-spring = CSV.read("reveal/week01/spring_force.csv", DataFrame)
+spring = CSV.read("assets/data/spring_force.csv", DataFrame)
 x = spring.extension_m
 y = spring.force_N
 println(length(x), " measurements")</code></pre><pre class="output"><code>6 measurements</code></pre>
