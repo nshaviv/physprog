@@ -1,7 +1,9 @@
 # Get the course files and run Julia
 
 These are the student materials for the course. The student repository is
-**nshaviv/physprog**.
+**nshaviv/physprog**. Reading the book needs no software; installing Julia is
+optional, for running the examples yourself. Homework is submitted on the course
+**Moodle** page.
 
 ## 1. Install the tools
 
@@ -61,6 +63,26 @@ Course Julia environment verified.
 ```
 
 Select the same project environment in VS Code's Julia extension.
+
+### What gets installed
+
+| Package | Course responsibility |
+|---|---|
+| `BenchmarkTools` | Careful timing and benchmarking |
+| `CSV` | Reading and writing delimited data |
+| `DataFrames` | Tabular data preparation and summaries |
+| `IJulia` | Julia kernel for the lecture and recitation notebooks |
+| `Optim` | Bounded and nonlinear optimization |
+| `OrdinaryDiffEq` | Numerical ordinary differential equations |
+| `Plots` | Common plotting interface and GR output |
+| `PlotlyJS` | Interactive plotting backend |
+| `StableRNGs` | Reproducible teaching and test random streams |
+| `Unitful` | Physical quantities with units |
+
+`LinearAlgebra`, `Random`, `Statistics`, and `Test` are Julia standard libraries;
+Julia 1.12 supplies them, so they are not installed with `Pkg.add`. The recorded
+versions are pinned in `Manifest.toml`, so the same commands reproduce the same
+environment on another machine.
 
 ## 4. Notebooks (optional) and personal work
 

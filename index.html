@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Physics Programming (77641) — course materials</title>
+<style>
+  :root{--ink:#132030;--blue:#2879b9;--orange:#f36619;--muted:#52606f;--line:#dce3ed}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,Avenir,Arial,sans-serif;color:var(--ink);line-height:1.5;background:#f7f9fc}
+  header{background:#fff;border-bottom:1px solid var(--line);padding:2.2rem 1.2rem}
+  main{max-width:900px;margin:0 auto;padding:1.4rem 1.2rem 4rem}
+  h1{margin:0 0 .3rem;font-size:1.7rem}
+  h2{margin:2rem 0 .6rem;font-size:1.15rem}
+  .sub{color:var(--muted);margin:0}
+  .cta{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.1rem}
+  .btn{display:inline-block;padding:.6rem 1rem;border-radius:10px;text-decoration:none;font-weight:600;border:2px solid var(--blue);color:var(--blue)}
+  .btn.primary{background:var(--blue);color:#fff}
+  .btn.ghost{border-color:var(--line);color:var(--ink)}
+  table{border-collapse:collapse;width:100%;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:.55rem .7rem;border-bottom:1px solid var(--line);text-align:left;font-size:.95rem;vertical-align:top}
+  th{background:#eef4fb;font-size:.85rem;text-transform:uppercase;letter-spacing:.03em}
+  tr:last-child td{border-bottom:none}
+  a{color:var(--blue)}
+  .langs a{margin-right:.5rem}
+  .note{background:#fff7ef;border-left:5px solid var(--orange);border-radius:10px;padding:.7rem .9rem;margin-top:1rem;font-size:.95rem}
+  footer{color:var(--muted);font-size:.85rem;margin-top:2.4rem;border-top:1px solid var(--line);padding-top:1rem}
+  code{background:#eef2f7;padding:.1em .35em;border-radius:5px;font-size:.9em}
+</style>
+</head>
+<body>
+<header>
+  <h1>Physics Programming — 77641</h1>
+  <p class="sub">Julia + Python for first-year physics. English, Hebrew, and Arabic.</p>
+  <div class="cta">
+    <a class="btn primary" href="classnotes/notes-en/main.pdf">Read the lecture book (English)</a>
+    <a class="btn" href="STUDENT_SETUP.md">Set up Julia (optional)</a>
+    <a class="btn ghost" href="https://github.com/nshaviv/physprog/archive/refs/heads/main.zip">Download ZIP</a>
+  </div>
+</header>
+<main>
+  <h2>Books</h2>
+  <p class="langs">
+    Lecture book:
+    <a href="classnotes/notes-en/main.pdf">English</a>
+    <a href="classnotes/notes-he/main.pdf">עברית</a>
+    <a href="classnotes/notes-ar/main.pdf">العربية</a><br>
+    Recitation book:
+    <a href="recitations/recitation-en/main.pdf">English</a>
+    <a href="recitations/recitation-he/main.pdf">עברית</a>
+    <a href="recitations/recitation-ar/main.pdf">العربية</a>
+  </p>
+
+  <h2>Weekly materials</h2>
+  <table>
+    <thead><tr><th>Week</th><th>Slides</th><th>Homework</th><th>Bonus (optional)</th><th>Notebooks (optional)</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Week 0</td>
+        <td><a href="week-0-intro/presentation/lecture.html">EN</a> · <a href="week-0-intro/presentation/lecture-he.html">HE</a></td>
+        <td>—</td>
+        <td>—</td>
+        <td><a href="https://github.com/nshaviv/physprog/blob/main/week-0-intro/notebooks/lecture_00-en.ipynb">EN</a> · <a href="https://github.com/nshaviv/physprog/blob/main/week-0-intro/notebooks/lecture_00-he.ipynb">HE</a> · <a href="https://github.com/nshaviv/physprog/blob/main/week-0-intro/notebooks/lecture_00-ar.ipynb">AR</a></td>
+      </tr>
+      <tr>
+        <td>Week 1</td>
+        <td><a href="week-1/presentation/lecture.html">EN</a> · <a href="week-1/presentation/lecture-he.html">HE</a></td>
+        <td><a href="week-1/HW1-en.pdf">EN</a> · <a href="week-1/HW1-he.pdf">HE</a> · <a href="week-1/HW1-ar.pdf">AR</a></td>
+        <td><a href="week-1/Bonus1-en.pdf">EN</a> · <a href="week-1/Bonus1-he.pdf">HE</a> · <a href="week-1/Bonus1-ar.pdf">AR</a></td>
+        <td><a href="https://github.com/nshaviv/physprog/blob/main/week-1/notebooks/lecture_01-en.ipynb">lecture</a> · <a href="https://github.com/nshaviv/physprog/blob/main/week-1/notebooks/recitation_01-en.ipynb">recitation</a></td>
+      </tr>
+      <tr>
+        <td>Week 2</td>
+        <td><a href="week-2/presentation/lecture.html">EN</a> · <a href="week-2/presentation/lecture-he.html">HE</a></td>
+        <td><a href="week-2/HW2-en.pdf">EN</a> · <a href="week-2/HW2-he.pdf">HE</a> · <a href="week-2/HW2-ar.pdf">AR</a></td>
+        <td><a href="week-2/Bonus2-en.pdf">EN</a> · <a href="week-2/Bonus2-he.pdf">HE</a> · <a href="week-2/Bonus2-ar.pdf">AR</a></td>
+        <td><a href="https://github.com/nshaviv/physprog/blob/main/week-2/notebooks/lecture_02-en.ipynb">lecture</a> · <a href="https://github.com/nshaviv/physprog/blob/main/week-2/notebooks/recitation_02-en.ipynb">recitation</a></td>
+      </tr>
+      <tr>
+        <td>Week 3</td>
+        <td><a href="week-3/presentation/lecture.html">EN</a> · <a href="week-3/presentation/lecture-he.html">HE</a></td>
+        <td><a href="week-3/HW3-en.pdf">EN</a> · <a href="week-3/HW3-he.pdf">HE</a> · <a href="week-3/HW3-ar.pdf">AR</a></td>
+        <td><a href="week-3/Bonus3-en.pdf">EN</a> · <a href="week-3/Bonus3-he.pdf">HE</a> · <a href="week-3/Bonus3-ar.pdf">AR</a></td>
+        <td><a href="https://github.com/nshaviv/physprog/blob/main/week-3/notebooks/lecture_03-en.ipynb">lecture</a> · <a href="https://github.com/nshaviv/physprog/blob/main/week-3/notebooks/recitation_03-en.ipynb">recitation</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>How to work each week.</strong> Read the chapter before class, then do the homework and submit it on the course <strong>Moodle</strong> page. Reading needs no software; the notebooks and Julia are optional extras for running the examples yourself.
+  </div>
+
+  <h2>Optional self-study</h2>
+  <p>Three extra chapters — Lissajous curves, total internal reflection, and random walks and diffusion — in the <a href="further-reading/README.md">further-reading companion</a> (English and Hebrew). Not examined, not a prerequisite.</p>
+
+  <footer>
+    Student repository: <a href="https://github.com/nshaviv/physprog">github.com/nshaviv/physprog</a>. Full setup details in <a href="STUDENT_SETUP.md">STUDENT_SETUP.md</a>.
+  </footer>
+</main>
+</body>
+</html>

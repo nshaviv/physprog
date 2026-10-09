@@ -13,6 +13,10 @@
 <section><h2>Julia notation follows the model</h2><pre><code class="language-julia">x_next = A * x + B * u
 y = C * x</code></pre><p>Here <code>x</code>, <code>u</code>, and <code>y</code> are vectors, while <code>A</code>, <code>B</code>, and <code>C</code> are matrices. We can compare each line of code directly with the corresponding equation.</p></section>
 <section><h2>Install Julia carefully before the first lab</h2><div class="grid"><div class="card"><h3>1 · Get the official release</h3><p>Download Julia 1.12.6 for your operating system from <a href="https://julialang.org/downloads/">julialang.org/downloads</a>. Install it normally; do not use a random copy from a search result.</p></div><div class="card math"><h3>2 · Start the REPL</h3><p>Open Julia and run <code>VERSION</code>. It should report <code>v"1.12.6"</code>. The REPL evaluates one Julia expression at a time.</p></div><div class="card physics"><h3>3 · Install VS Code + extension</h3><p>Install VS Code from its official site, then the Julia extension. Choose the Julia executable if the extension cannot find it.</p></div><div class="card check"><h3>4 · Verify the whole path</h3><p>In a Julia file, run <code>println(2 + 3)</code>. Save, run, and locate both the displayed result and terminal output. Ask for help with the exact error text and your operating system.</p></div></div></section>
+<section><h2>Get the course files</h2><p>Reading needs no setup: open the links on the course page. To run the code, clone the repository — or, without Git, use <em>Code → Download ZIP</em> on the repository page and unpack it — then install the recorded environment from the repository root.</p><pre><code class="language-bash">git clone https://github.com/nshaviv/physprog.git
+cd physprog
+julia --project=. -e 'using Pkg; Pkg.instantiate()'
+julia --project=. verify_environment.jl</code></pre></section>
 <section><h2>Public gravitational-wave data: two sites</h2><pre><code>from gwosc.datasets import event_gps
 from gwpy.timeseries import TimeSeries
 from gwpy.signal import filter_design
