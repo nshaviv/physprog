@@ -42,10 +42,3 @@ week-0-intro/  week-1/  week-2/  week-3/       per-week materials
 assets/figures/  assets/data/                  figures and CSV data
 Project.toml  Manifest.toml  STUDENT_SETUP.md  verify_environment.jl
 ```
-
-## Not included
-
-This release contains **no solutions, no exam question bank, and no grading or
-CodeRunner scripts**. The homework and bonus files are the assignment statements
-only; solutions will be published later. The further-reading companion contains
-optional self-study worked answers that are not assessed.
