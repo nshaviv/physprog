@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Course material</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <style>
   :root{--ink:#132030;--blue:#2879b9;--orange:#f36619;--muted:#52606f;--line:#dce3ed}
   *{box-sizing:border-box}
@@ -23,6 +24,7 @@
   th,td{padding:.5rem .7rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
   th{background:#eef4fb;font-size:.85rem;text-transform:uppercase;letter-spacing:.03em}
   blockquote{border-left:5px solid var(--orange);background:#fff7ef;margin:1rem 0;padding:.6rem .9rem;border-radius:8px}
+  .katex-display{overflow-x:auto;overflow-y:hidden;padding:.2rem 0}
   .err{background:#fff2f2;border-left:5px solid #c0392b;padding:.7rem .9rem;border-radius:8px}
 </style>
 </head>
@@ -30,13 +32,40 @@
 <header><a href="./">&larr; Physics Programming 77641</a></header>
 <main id="doc"><p>Loading…</p></main>
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script>
 const params = new URLSearchParams(location.search);
 const src = params.get('src') || 'STUDENT_SETUP.md';
 const dir = src.includes('/') ? src.slice(0, src.lastIndexOf('/') + 1) : '';
 const doc = document.getElementById('doc');
 
-function rewrite(scope){
+// Protect fenced code blocks and $…$ / $$…$$ math before Markdown parsing, so
+// Markdown never mangles underscores/asterisks inside formulas, then restore:
+// math via KaTeX, code via a nested Markdown pass.
+const CODE = i => `ZZZCODETOKEN${i}ZZZ`;
+const MATH = i => `ZZZMATHTOKEN${i}ZZZ`;
+
+function preprocess(md) {
+  const code = [], math = [];
+  md = md.replace(/```[^\n]*\n[\s\S]*?\n```/g, (m) => { code.push(m); return `\n${CODE(code.length - 1)}\n`; });
+  md = md.replace(/\$\$([\s\S]+?)\$\$/g, (m, body) => { math.push({ tex: body, display: true }); return MATH(math.length - 1); });
+  md = md.replace(/\$([^\n$]+?)\$/g, (m, body) => { math.push({ tex: body, display: false }); return MATH(math.length - 1); });
+  return { md, code, math };
+}
+
+function restore(html, code, math) {
+  html = html.replace(/ZZZMATHTOKEN(\d+)ZZZ/g, (m, i) => {
+    const item = math[+i];
+    if (!item || !window.katex) return m;
+    try { return katex.renderToString(item.tex, { displayMode: item.display, throwOnError: false }); }
+    catch (e) { return item.tex; }
+  });
+  html = html.replace(/<p>\s*ZZZCODETOKEN(\d+)ZZZ\s*<\/p>/g, (m, i) => marked.parse(code[+i]));
+  html = html.replace(/ZZZCODETOKEN(\d+)ZZZ/g, (m, i) => marked.parse(code[+i]));
+  return html;
+}
+
+function rewrite(scope) {
   scope.querySelectorAll('a[href]').forEach(a => {
     const href = a.getAttribute('href');
     if (/^[a-z]+:\/\//i.test(href) || href.startsWith('#') || href.startsWith('/')) return;
@@ -56,7 +85,8 @@ fetch(src).then(r => {
   return r.text();
 }).then(text => {
   document.title = src.split('/').pop().replace('.md', '');
-  doc.innerHTML = marked.parse(text);
+  const { md, code, math } = preprocess(text);
+  doc.innerHTML = restore(marked.parse(md), code, math);
   rewrite(doc);
 }).catch(err => {
   doc.innerHTML = '<div class="err">Could not load <code>' + src + '</code> (' + err.message + ').</div>';
