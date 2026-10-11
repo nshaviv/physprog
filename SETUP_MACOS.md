@@ -112,6 +112,8 @@ The second command should print a line beginning with `julia version 1.12`.
 
 > The `+1.12` part means "run the 1.12 version of Julia". Use it every time.
 > You can also install Julia by hand from <https://julialang.org/install/>.
+> This works the same whether your shell is **zsh** (the macOS default) or **bash**;
+> if `julia` is not found afterwards, see the bash note in [Section 16](#16-if-something-goes-wrong).
 
 ---
 
@@ -377,6 +379,19 @@ resubmit before the deadline shown on the Moodle page.
 - **`git`, `julia`, or `code` "command not found".** Close Terminal and open a new
   one — new programs are only seen in a fresh window. For `code`, do the step 8
   command-palette action once.
+- **Using `bash` instead of `zsh`.** Every command on this page is the same in both
+  shells, so nothing above changes. The one difference is *where* settings persist:
+  `zsh` reads `~/.zshrc`, while a `bash` login shell reads `~/.bash_profile` (it does
+  **not** read `~/.bashrc` unless that file is sourced). So if `juliaup` or `julia`
+  is "command not found" after installing Julia, add this line to the file your shell
+  reads, then open a new Terminal:
+  ```
+  export PATH="$HOME/.juliaup/bin:$PATH"
+  ```
+  You can always run Julia by its full path in any shell:
+  ```
+  ~/.juliaup/bin/julia +1.12 --version
+  ```
 - **`using CSV` fails / "Package CSV not found".** You are using the wrong Julia
   environment. Make sure you are in the course folder and run with `--project=.`,
   as in step 7; in VS Code, select the environment for this folder.
