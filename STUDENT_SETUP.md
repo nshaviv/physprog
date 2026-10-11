@@ -5,6 +5,11 @@ These are the student materials for the course. The student repository is
 optional, for running the examples yourself. Homework is submitted on the course
 **Moodle** page.
 
+**Completely new to this?** Follow the click-by-click guide for your computer, which
+starts from a brand-new machine and ends with the first exercise submitted:
+[Windows](SETUP_WINDOWS.md) · [macOS](SETUP_MACOS.md). The rest of this page is the
+reference version for both systems.
+
 ## 1. Install the tools
 
 Install Git from https://git-scm.com/downloads and Julia through Juliaup from
