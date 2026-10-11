@@ -28,7 +28,9 @@ not installed, use the repository's **Code → Download ZIP** button instead of
 cloning. The notebooks under
 `week-N/notebooks/` are optional interactive companions; each one already carries
 its saved outputs. They read their data from `assets/data/` and their figures from
-`assets/figures/`.
+`assets/figures/`. You can keep your own scripts outside this folder; see
+*Working from your own folder* in [STUDENT_SETUP.md](STUDENT_SETUP.md) for how to
+use the course environment and data from anywhere.
 
 ## Layout
 
@@ -42,5 +44,6 @@ week-0-intro/  week-1/  week-2/  week-3/       per-week materials
     Bonusn-{lang}.pdf     optional bonus assignment
     notebooks/            lecture_nn-{lang}.ipynb, recitation_nn-{lang}.ipynb
 assets/figures/  assets/data/                  figures and CSV data
+examples/                                      runnable Julia example scripts
 Project.toml  Manifest.toml  STUDENT_SETUP.md  verify_environment.jl
 ```

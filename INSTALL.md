@@ -48,6 +48,14 @@ session. A displayed result in the editor is not the program output.
 - **`using CSV` (or another package) fails.** Select the course environment:
   from the repository root run
   `julia --project=. -e 'using Pkg; Pkg.instantiate()'`, then restart the REPL.
+  If your script is in a different folder, point Julia at the course folder with
+  `julia +1.12 --project=/path/to/physprog your_script.jl` (or set
+  `julia.environmentPath` in VS Code); see *Working from your own folder* in
+  [STUDENT_SETUP.md](STUDENT_SETUP.md).
+- **The data file is not found (`free_fall.csv`, `ohm_law.csv`).** Data is read by
+  a path, not from the environment. Either set `PHYSPROG_HOME` to the course folder
+  and read `joinpath(ENV["PHYSPROG_HOME"], "assets", "data", "free_fall.csv")`, or
+  copy the CSV next to your script and read `CSV.read("free_fall.csv", DataFrame)`.
 - **The wrong Julia version starts.** Pick the installed executable in the
   setting above. The course examples were checked with Julia 1.12.6.
 - **You cannot find your figure.** The script saves it in the folder you ran it

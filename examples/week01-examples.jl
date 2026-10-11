@@ -45,13 +45,16 @@ println(squared)
 # --- 5. Guided measurement-to-model workflow --------------------------------
 using CSV, DataFrames, Plots
 
-# Find the supplied data file. The first candidate is the student repository
-# layout (assets/data); the second is the instructor source layout, found when
-# running from the course sources directory.
-candidates = ("assets/data/ohm_law.csv",
-              joinpath("reveal", "week01", "ohm_law.csv"))
+# Find the supplied data file. We look under the course folder named by
+# PHYSPROG_HOME (set it to your course clone), or in the current folder, so the
+# script works whether you run it from the repository or copy the CSV beside it.
+root = get(ENV, "PHYSPROG_HOME", pwd())
+candidates = (joinpath(root, "assets", "data", "ohm_law.csv"),
+              joinpath(root, "reveal", "week01", "ohm_law.csv"),
+              "assets/data/ohm_law.csv",
+              "ohm_law.csv")
 idx = findfirst(isfile, candidates)
-idx === nothing && error("ohm_law.csv not found; run from the repository root")
+idx === nothing && error("ohm_law.csv not found; set PHYSPROG_HOME to the course folder, or copy the CSV here")
 datafile = candidates[idx]
 println("data: ", datafile)
 
