@@ -195,7 +195,7 @@ Make sure you are inside the course folder (the `dir` command above listed
 `Project.toml`). Then paste:
 
 ```
-julia +1.12 --project=. -e 'using Pkg; Pkg.instantiate()'
+julia +1.12 --project=. -e "using Pkg; Pkg.instantiate()"
 ```
 
 This downloads the packages the course uses (CSV, DataFrames, Plots, and others).
@@ -426,7 +426,7 @@ git clone https://github.com/nshaviv/physprog.git
 cd physprog
 
 # Install the course packages (once) and verify
-julia +1.12 --project=. -e 'using Pkg; Pkg.instantiate()'
+julia +1.12 --project=. -e "using Pkg; Pkg.instantiate()"
 julia +1.12 --project=. verify_environment.jl
 
 # Open the folder in VS Code
