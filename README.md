@@ -23,7 +23,8 @@ There is a one-page web index with the same links at
 
 To run the examples, install Julia and the recorded environment — see
 [STUDENT_SETUP.md](STUDENT_SETUP.md), and [INSTALL.md](INSTALL.md) for common
-installation problems (for example, telling VS Code where Julia is). If Git is
+installation problems (for example, telling VS Code where Julia is), plus the
+[Julia and VS Code FAQ](FAQ.md). If Git is
 not installed, use the repository's **Code → Download ZIP** button instead of
 cloning. The notebooks under
 `week-N/notebooks/` are optional interactive companions; each one already carries

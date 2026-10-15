@@ -40,8 +40,8 @@ Install Visual Studio Code from https://code.visualstudio.com/ and its official
 Julia extension. Lab computers may already have these tools.
 
 If VS Code cannot find Julia, or you meet another installation problem, see the
-separate [INSTALL.md](INSTALL.md) page (with screenshots of the executable-path
-setting).
+separate [INSTALL.md](INSTALL.md) troubleshooting page and the
+[Julia and VS Code FAQ](FAQ.md).
 
 ## 2. Clone into a location we choose
 
