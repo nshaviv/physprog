@@ -13,6 +13,10 @@ You can read everything with no software installed.
   (also [עברית](classnotes/notes-he/main.pdf) · [العربية](classnotes/notes-ar/main.pdf)).
 - **Homework and bonus:** `week-N/HW{N}-{lang}.pdf`, `week-N/Bonus{N}-{lang}.pdf`.
   Homework is submitted on the course **Moodle** page.
+  HW2 uses the [Julia template](week-2/HW2_student_template.jl): read keyboard
+  input, use nested conditionals, and check the published six-case table before
+  submitting the complete script. CodeRunner is not required.
+  **HW3 is withheld pending revision.** The Week 3 teaching material remains available.
 - **Slides:** `week-N/presentation/`.
 - **Recitation book:** `recitations/recitation-{lang}/main.pdf`.
 
@@ -41,7 +45,8 @@ recitations/recitation-{en,he,ar}/main.pdf     recitation book
 further-reading/                               optional self-study companion
 week-0-intro/  week-1/  week-2/  week-3/       per-week materials
     presentation/        Reveal slides (English, Hebrew)
-    HWn-{lang}.pdf        homework assignment (Week 1 onward)
+    HWn-{lang}.pdf        released homework assignments (currently Weeks 1–2)
+    HW2_student_template.jl  shared English-commented template in week-2/
     Bonusn-{lang}.pdf     optional bonus assignment
     notebooks/            lecture_nn-{lang}.ipynb, recitation_nn-{lang}.ipynb
 assets/figures/  assets/data/                  figures and CSV data
