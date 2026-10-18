@@ -62,12 +62,18 @@
     <li>Download the template and the checker into the same folder.</li>
     <li>Save the template under your student ID, for example <code>123456789.jl</code>.</li>
     <li>Complete the input commands, calculations, conditionals, and output lines in that file.</li>
+    <li>Run the program yourself with a few sets of numbers and inspect the output.</li>
     <li>Run the checker on your file.</li>
     <li>Submit only your completed file on Moodle.</li>
   </ol>
 
+  <h2>Run your own program</h2>
+  <p>Before using the checker, try your own numbers. Open a terminal in the folder containing your file and run:</p>
+  <pre><code>julia YOUR_ID.jl</code></pre>
+  <p>Enter one number per line, in the order listed in the assignment. Check the result against the published table and the expected output format.</p>
+
   <h2>Run the checker</h2>
-  <p>Open a terminal in the folder containing both files and run:</p>
+  <p>After your own tests, run the checker on the same file:</p>
   <pre><code>julia hw2_checker.jl YOUR_ID.jl</code></pre>
   <p>
     The checker starts a fresh Julia process for each case and supplies five numbers
@@ -81,11 +87,6 @@
     program's actual output. Passing all checks is strong evidence that the main branches
     work; it does not prove correctness for every possible input.
   </p>
-
-  <h2>Run your own program</h2>
-  <p>To try your own numbers interactively, run:</p>
-  <pre><code>julia YOUR_ID.jl</code></pre>
-  <p>Enter one number per line, in the order listed in the assignment.</p>
 
   <h2>What the checker expects</h2>
   <ul>
