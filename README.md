@@ -12,11 +12,8 @@ You can read everything with no software installed.
 - **Read the lecture book:** [`classnotes/notes-en/main.pdf`](classnotes/notes-en/main.pdf)
   (also [עברית](classnotes/notes-he/main.pdf) · [العربية](classnotes/notes-ar/main.pdf)).
 - **Homework and bonus:** `week-N/HW{N}-{lang}.pdf`, `week-N/Bonus{N}-{lang}.pdf`.
-  Homework is submitted on the course **Moodle** page.
-  HW2 has its own [packet](week-2/hw2/index.html) with English, Hebrew, and
-  Arabic PDFs, the Julia template, and the separate checker. Run
-  `julia hw2_checker.jl YOUR_ID.jl` before submitting the completed script.
-  CodeRunner is not required.
+  Homework is submitted on the course **Moodle** page. From Week 2, the core
+  programming fragment is submitted in the CodeRunner question.
   **HW3 is withheld pending revision.** The Week 3 teaching material remains available.
 - **Slides:** `week-N/presentation/`.
 - **Recitation book:** `recitations/recitation-{lang}/main.pdf`.
@@ -47,7 +44,6 @@ further-reading/                               optional self-study companion
 week-0-intro/  week-1/  week-2/  week-3/       per-week materials
     presentation/        Reveal slides (English, Hebrew)
     HWn-{lang}.pdf        released homework assignments (currently Weeks 1–2)
-    week-2/hw2/           HW2 packet: PDFs, template, checker, index.html
     Bonusn-{lang}.pdf     optional bonus assignment
     notebooks/            lecture_nn-{lang}.ipynb, recitation_nn-{lang}.ipynb
 assets/figures/  assets/data/                  figures and CSV data
