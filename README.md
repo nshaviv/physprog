@@ -12,8 +12,8 @@ You can read everything with no software installed.
 - **Read the lecture book:** [`classnotes/notes-en/main.pdf`](classnotes/notes-en/main.pdf)
   (also [עברית](classnotes/notes-he/main.pdf) · [العربية](classnotes/notes-ar/main.pdf)).
 - **Homework and bonus:** `week-N/HW{N}-{lang}.pdf`, `week-N/Bonus{N}-{lang}.pdf`.
-  Homework is submitted on the course **Moodle** page. From Week 2, the core
-  programming fragment is submitted in the CodeRunner question.
+  Homework is submitted on the course **Moodle** page. From Week 2, paste the
+  complete core program into the CodeRunner answer box.
   **HW3 is withheld pending revision.** The Week 3 teaching material remains available.
 - **Slides:** `week-N/presentation/`.
 - **Recitation book:** `recitations/recitation-{lang}/main.pdf`.
