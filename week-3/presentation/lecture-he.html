@@ -1,94 +1,247 @@
-<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>פרק 3 — לולאות, וקטורים ותנועה נדגמת</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css"><style>:root{--ink:#132238;--orange:#f36619;--green:#1e6e46;--violet:#5c3e91;--blue:#2879b9}.reveal{font-family:Arial,sans-serif;color:var(--ink)}.reveal .slides section{box-sizing:border-box;padding:24px 58px;direction:rtl;text-align:right}.reveal h1,.reveal h2,.reveal h3{text-transform:none;color:var(--ink)}.reveal h1{font-size:1.65em}.reveal h2{font-size:1.08em}.reveal h3{font-size:.62em}.reveal p,.reveal li{font-size:.51em;line-height:1.32}.accent{color:var(--orange)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid.three{grid-template-columns:repeat(3,1fr)}.card{background:#fff;border:1px solid #dce3ed;border-right:7px solid var(--orange);border-radius:14px;padding:13px 17px;box-shadow:0 10px 25px #13203014}.physics{border-right-color:var(--violet)}.math{border-right-color:var(--green)}.check{border-right-color:var(--blue)}pre,code{direction:ltr;unicode-bidi:isolate;text-align:left}pre{font-size:.39em;line-height:1.3;background:#101923;color:#edf4ff;padding:14px 18px;border-radius:12px;white-space:pre-wrap}.output{background:#f0f8f3;color:var(--ink);border-right:6px solid var(--green)}@media(max-width:700px){.reveal .slides section{padding:18px 28px}.grid,.grid.three{grid-template-columns:1fr}.reveal p,.reveal li{font-size:.62em}}/* Shared code/output appearance: output differs only in background. */
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>פרק 3 — וקטורים, לולאות ותנועה נדגמת</title><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css"><style>:root{--ink:#132238;--orange:#f36619;--green:#1e6e46;--violet:#5c3e91;--blue:#2879b9}.reveal{font-family:Arial,sans-serif;color:var(--ink)}.reveal .slides section{box-sizing:border-box;padding:24px 58px;direction:rtl;text-align:right}.reveal h1,.reveal h2,.reveal h3{text-transform:none;color:var(--ink)}.reveal h1{font-size:1.65em}.reveal h2{font-size:1.08em}.reveal h3{font-size:.62em}.reveal p,.reveal li{font-size:.51em;line-height:1.32}.accent{color:var(--orange)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid.three{grid-template-columns:repeat(3,1fr)}.card{background:#fff;border:1px solid #dce3ed;border-right:7px solid var(--orange);border-radius:14px;padding:13px 17px;box-shadow:0 10px 25px #13203014}.physics{border-right-color:var(--violet)}.math{border-right-color:var(--green)}.check{border-right-color:var(--blue)}pre,code{direction:ltr;unicode-bidi:isolate;text-align:left}pre{font-size:.39em;line-height:1.3;background:#101923;color:#edf4ff;padding:14px 18px;border-radius:12px;white-space:pre-wrap}.output{background:#f0f8f3;color:var(--ink);border-right:6px solid var(--green)}@media(max-width:700px){.reveal .slides section{padding:18px 28px}.grid,.grid.three{grid-template-columns:1fr}.reveal p,.reveal li{font-size:.62em}}/* Shared code/output appearance: output differs only in background. */
 .reveal pre{background:#f2f7fc;color:#132238;border:1px solid #ccd3da;border-radius:4px;box-shadow:none;padding:14px 18px;}
 .reveal pre.output,.reveal .output pre{background:#f1faf1;color:#132238;border:1px solid #ccd3da;border-radius:4px;}
 .reveal .output{background:#f1faf1;border-left:1px solid #ccd3da;}
 .reveal .output code{background:transparent;color:inherit;}
 </style></head><body><div class="reveal"><div class="slides">
-<section><h1>פרק 3<br><span class="accent">לולאות, וקטורים ותנועה נדגמת</span></h1><p>כאשר חישוב אחד הופך לרבים, נחזור במכוון, נשמור היסטוריות תואמות ונבדוק מה השתנה בצעד הזמן.</p><p data-course-notebook-link="complete"><a href="../notebooks/lecture_03-he.ipynb">מחברת ההרצאה המלאה</a></p></section>
-<section><h2>למה לולאה?</h2><div class="grid"><div class="card physics"><h3>מסלול פיזיקלי</h3><p>מחשב אינו רואה עקומה רציפה. הוא מעדכן ושומר דגימות בזמנים רבים עד לאירוע עצירה מוגדר.</p></div><div class="card math"><h3>תבנית ניתנת לשחזור</h3><p>לולאה מחליפה חישובים מועתקים ומציגה את כלל העדכון, המונה ותנאי העצירה.</p></div></div></section><section><h2>לולאת <code>for</code> ראשונה</h2><p>הטווח <code>1:3</code> כולל את שני קצותיו; לפני ההרצה נרשום אילו ערכים יקבל <code>n</code>.</p><pre><code class="language-julia">for n in 1:3
+<section><h1>פרק 3<br><span class="accent">וקטורים, לולאות ותנועה נדגמת</span></h1><p>כאשר חישוב אחד הופך לרבים, נחזור במכוון, נשמור היסטוריות מסודרות בווקטורים ונצעיד מודל קדימה בזמן.</p><p data-course-notebook-link="complete"><a href="../notebooks/lecture_03-he.ipynb">מחברת ההרצאה המלאה</a></p></section>
+<section><h2>למה לולאה ואחסון?</h2><div class="grid"><div class="card physics"><h3>מסלול פיזיקלי</h3><p>מחשב אינו רואה עקומה רציפה. הוא מעדכן ושומר דגימות בזמנים רבים עד לאירוע עצירה מוגדר.</p></div><div class="card math"><h3>תבנית ניתנת לשחזור</h3><p>לולאה מחליפה חישובים מועתקים; וקטורים שומרים את ההיסטוריה בסדר, וביחד הם הופכים את כלל העדכון והשפעתו לבדיקים.</p></div></div></section>
+<section><h2>יצירת וקטורים</h2><pre><code class="language-julia">v = [10, 20, 30, 40]
+empty_int = Int[]
+println(v)
+println(empty_int)
+println(zeros(5))
+println(ones(4))
+println(collect(1:5))
+println(range(0, 1; length=6))</code></pre><pre class="output"><code>[10, 20, 30, 40]
+Int64[]
+[0.0, 0.0, 0.0, 0.0, 0.0]
+[1.0, 1.0, 1.0, 1.0]
+[1, 2, 3, 4, 5]
+0.0:0.2:1.0</code></pre><p><code>1:5</code> הוא טווח, לא וקטור; <code>collect</code> הופך אותו לווקטור. <code>zeros</code>/<code>ones</code> בונים וקטורים מוכנים; <code>Int[]</code> פותח וקטור ריק של שלמים.</p></section>
+<section><h2>אינדוקס ופרוסות</h2><pre><code class="language-julia">v = [10, 20, 30, 40, 50]
+println(v[1])
+println(v[end])
+println(v[2:4])
+println(v[2:end])
+v[2:3] = [99, 88]
+println(v[[1, 3, 5]])
+indices = [2, 3]
+println(v[indices])
+println(v)</code></pre><pre class="output"><code>10
+50
+[20, 30, 40]
+[20, 30, 40, 50]
+[10, 88, 50]
+[99, 88]
+[10, 99, 88, 40, 50]</code></pre><p>האינדוקס מתחיל ב-1; <code>end</code> הוא המקום האחרון; פרוסות כוללות את שני הקצוות. אפשר להשיב לפרוסה, ו-<code>v[[1,3,5]]</code> בוחר כמה מקומות.</p></section>
+<section><h2>העתק, שם חלופי ותצוגה</h2><pre><code class="language-julia">a = [1, 2, 3]
+b = a
+c = a[1:2]
+d = copy(a)
+e = @view a[1:2]
+a[1] = 2
+println(&quot;a[1]=&quot;, a[1], &quot; b[1]=&quot;, b[1], &quot; c[1]=&quot;, c[1], &quot; d[1]=&quot;, d[1], &quot; e[1]=&quot;, e[1])</code></pre><pre class="output"><code>a[1]=2 b[1]=2 c[1]=1 d[1]=1 e[1]=2</code></pre><p><code>b = a</code> הוא שם חלופי (אותו אחסון); <code>copy(a)</code> בלתי תלוי; <code>@view</code> חולק אחסון בלי להעתיק; פרוסה מעתיקה. בשמירת היסטוריה נשתמש בתמונת מצב.</p></section>
+<section><h2>שינוי וקטור</h2><pre><code class="language-julia">v = [1, 2, 3]
+push!(v, 4); println(v)
+append!(v, [5, 6]); println(v)
+pop!(v); println(v)
+insert!(v, 2, 99); println(v)
+deleteat!(v, 2); println(v)
+w = vcat(v, [7, 8]); println(w); println(v)
+w2 = [v; 7; 8]; println(w2)</code></pre><pre class="output"><code>[1, 2, 3, 4]
+[1, 2, 3, 4, 5, 6]
+[1, 2, 3, 4, 5]
+[1, 99, 2, 3, 4, 5]
+[1, 2, 3, 4, 5]
+[1, 2, 3, 4, 5, 7, 8]
+[1, 2, 3, 4, 5]
+[1, 2, 3, 4, 5, 7, 8]</code></pre><p><code>!</code> מסמן פעולה משנה. <code>push!</code> מוסיף ערך אחד, <code>append!</code> מוסיף כל איבר, <code>vcat</code> בונה וקטור חדש.</p></section>
+<section><h2>חשבון וקטורים</h2><pre><code class="language-julia">a = [1.0, 2.0, 3.0]
+b = [4.0, 5.0, 6.0]
+println(a + b)
+println(2a)
+println(sum(a)); println(maximum(a)); println(minimum(a)); println(length(a))
+println(a .* b)
+println(a .^ 2)
+println(sqrt.(a))
+using LinearAlgebra
+println(dot(a, b))
+println(round(norm([1,1]); digits=4))</code></pre><pre class="output"><code>[5.0, 7.0, 9.0]
+[2.0, 4.0, 6.0]
+6.0
+3.0
+1.0
+3
+[4.0, 10.0, 18.0]
+[1.0, 4.0, 9.0]
+[1.0, 1.4142135623730951, 1.7320508075688772]
+32.0
+1.4142</code></pre><p>הנקודה מסמנת איבר-איבר: <code>.*</code>, <code>.^</code>, <code>sqrt.</code>. <code>sum</code>/<code>maximum</code>/<code>minimum</code> מסכמים; <code>LinearAlgebra</code> מספק <code>dot</code> ו-<code>norm</code>.</p></section>
+<section><h2>כמה דרכים לחזור</h2><pre><code class="language-julia">v = [10, 20, 30]
+for i in 1:3
+    println(i)
+end
+for x in v
+    println(x)
+end
+for i in eachindex(v)
+    println("index = ", i, ", value = ", v[i])
+end
+for (i, x) in enumerate(v)
+    println(i, " => ", x)
+end</code></pre><pre class="output"><code>1
+2
+3
+10
+20
+30
+index = 1, value = 10
+index = 2, value = 20
+index = 3, value = 30
+1 => 10
+2 => 20
+3 => 30</code></pre><p>רק ערכים: <code>for x in v</code>. אינדקסים: <code>eachindex</code>. גם וגם: <code>enumerate</code>.</p></section>
+<section><h2>משתנים צוברים</h2><pre><code class="language-julia">begin v = [3, 5, 8, 2]
+    total = 0
+    for x in v
+        total += x
+    end
+    println(total)
+    println(sum(v))
+end</code></pre><pre class="output"><code>18
+18</code></pre><pre><code class="language-julia">begin f = 1
+    for n in 1:5
+        f = f * n
+    end
+    println(f)
+end</code></pre><pre class="output"><code>120</code></pre><p>אתחול מחוץ ללולאה, שילוב איבר אחד בכל חזרה, ושמירת התוצאה. <code>begin … end</code> מקבץ את הוראות הדוגמה.</p></section>
+<section><h2>מונה וגדילת וקטורים</h2><pre><code class="language-julia">begin v = [-2, 3, 0, 7, -1]
+    count_positive = 0
+    for x in v
+        if x > 0
+            count_positive += 1
+        end
+    end
+    println(count_positive)
+end</code></pre><pre class="output"><code>2</code></pre><pre><code class="language-julia">begin v = [2, 3, 5, 7]
+    running = 0
+    cumulative = Int[]
+    for x in v
+        running += x
+        push!(cumulative, running)
+    end
+    println(cumulative)
+    println(cumsum(v))
+end</code></pre><pre class="output"><code>[2, 5, 10, 17]
+[2, 5, 10, 17]</code></pre><p>נלחץ כל ערך חדש כדי לשמור את ההיסטוריה בכל צעד — התבנית שבה נשתמש למסלול.</p></section>
+<section><h2>מכפלה סקלרית בלי <code>dot</code></h2><pre><code class="language-julia">using LinearAlgebra
+begin
+    a = [1.0, 2.0, 3.0]
+    b = [4.0, 5.0, 6.0]
+    s = 0.0
+    for i in eachindex(a, b)
+        s += a[i] * b[i]
+    end
+    println(s)              # 32.0
+    println(dot(a, b), &quot; &quot;, a⋅b)   # 32.0 32.0
+end</code></pre><pre class="output"><code>32.0
+32.0 32.0</code></pre><p>וקטורים מיושרים, צובר אחד, אינדקסים תואמים — הגרסה הידנית של <code>dot</code>.</p></section>
+<section><h2>סיכומים</h2><pre><code class="language-julia">using Statistics
+measurements = [1.0, 2.0, 3.0]   # m
+println(mean(measurements))
+println(std(measurements))</code></pre><pre class="output"><code>2.0
+1.0</code></pre><p><code>Statistics</code> הוא חלק מ-<code>Julia</code>. <code>std</code> משתמש במכנה המתוקן n−1. מסלול אינו אוטומטית אוסף מדידות חוזרות בלתי תלויות.</p></section>
+<section><h2>לולאות <code>while</code> ו-<code>break</code></h2><pre><code class="language-julia">for n in 1:10
+    if n^2 >= 20
+        println("first square at least 20 is $(n^2)")
+        break
+    end
+end</code></pre><pre class="output"><code>first square at least 20 is 25</code></pre><pre><code class="language-julia">begin count = 1
+    while count <= 3
+        println(count)
+        count = count + 1
+    end
+end</code></pre><pre class="output"><code>1
+2
+3</code></pre><p>בודקים ואז מעדכנים. ללא התוספת חוזרים לנצח; אי-שוויון שגוי יכול לדלג על אירוע גבולי.</p></section>
+<section><h2>עדכון אוילר: לגזור את השורות שאנו חוזרים עליהן</h2><div class="grid"><div class="card math"><p>עבור מרווח קטן Δt: <code>rₙ₊₁ = rₙ + vₙ Δt</code>, ואז <code>vₙ₊₁ = vₙ + aₙ Δt</code> עם מצב וקטורי <code>r=(x,y)</code>, <code>v=(vx,vy)</code>, <code>a=(0,−g)</code>.</p></div><div class="card physics"><p>ללא גרר, כבידה אחידה, +x אופקי ו-+y מעלה. המקום משתמש במהירות הישנה; זו מוסכמת אוילר המפורסמת.</p></div></div></section>
+<section><h2>סימולציה ראשונה</h2><pre><code class="language-julia">g = 9.81        # m/s^2
+speed = 20.0    # m/s
+angle = pi / 4
+r = [0.0, 0.0]   # m
+v = [speed * cos(angle), speed * sin(angle)]   # m/s
+a = [0.0, -g]    # m/s^2
+dt = 0.1         # s
+T = 2.0          # s
+N = round(Int, T / dt)
+trajectory_x = [r[1]]
+trajectory_y = [r[2]]
+velocities_x = [v[1]]
+velocities_y = [v[2]]
+for step in 1:N
+    r = r + v * dt
+    v = v + a * dt
+    push!(trajectory_x, r[1])
+    push!(trajectory_y, r[2])
+    push!(velocities_x, v[1])
+    push!(velocities_y, v[2])
+end
+println(&quot;Euler final position: &quot;, round(r[1]; digits=4), &quot;, &quot;, round(r[2]; digits=4))</code></pre><pre class="output"><code>Euler final position: 28.2843, 9.6453</code></pre><p>זמן סופי קבוע T לפני נחיתה, כך שכל הרצה שאנו משווים מסתיימת באותו זמן. הווקטורים שומרים את רכיבי המקום והמהירות בכל צעד.</p></section>
+<section><h2>שרטוט דגימות מול הנתיב המדויק</h2><pre><code class="language-julia">using Plots
+r0 = [0.0, 0.0]
+v0 = [speed * cos(angle), speed * sin(angle)]
+exact_trajectory_x = Float64[]
+exact_trajectory_y = Float64[]
+for t in 0:dt:T
+    push!(exact_trajectory_x, r0[1] + v0[1] * t + 0.5 * a[1] * t^2)
+    push!(exact_trajectory_y, r0[2] + v0[2] * t + 0.5 * a[2] * t^2)
+end
+p = plot(title=&quot;Projectile Motion: Euler vs Exact&quot;,
+         xlabel=&quot;x (m)&quot;, ylabel=&quot;y (m)&quot;, frame=:box)
+p = plot!(p, trajectory_x, trajectory_y, label=&quot;Euler&quot;, lw=2)
+p = scatter!(p, trajectory_x, trajectory_y, label=:none, lw=2)
+p = plot!(p, exact_trajectory_x, exact_trajectory_y, label=&quot;Exact&quot;, lw=2, ls=:dash)
+display(p)</code></pre><p>הנקודות הן דגימות אוילר השמורות; העקומה המקווקוית היא הפרבולה המדויקת. ב-t=T הדגימה נמצאת מעל הנקודה המדויקת ב-g·T·dt/2 = 0.981 מ.</p></section>
+<section><h2>אוילר והפתרון המדויק: הפלט הגרפי</h2><img src="../../assets/figures/week3-euler-trajectory.png" alt="Euler samples and exact projectile trajectory" style="width:85%"></section><section><h2>עידון והשוואה לתשובה המדויקת</h2><pre><code class="language-julia">using LinearAlgebra
+g = 9.81; speed = 20.0; angle = pi / 4; T = 2.0
+r0 = [0.0, 0.0]
+v0 = [speed * cos(angle), speed * sin(angle)]
+a = [0.0, -g]
+for dt in (0.2, 0.1, 0.05, 0.02)
+    r = copy(r0); v = copy(v0)
+    N = round(Int, T / dt)
+    for step in 1:N
+        r = r + v * dt
+        v = v + a * dt
+    end
+    exact = r0 + v0 * T + 0.5 * a * T^2
+    println("dt = $dt, error = ", round(norm(r - exact); digits=4), " m")
+end</code></pre><pre class="output"><code>dt = 0.2, error = 1.962 m
+dt = 0.1, error = 0.981 m
+dt = 0.05, error = 0.4905 m
+dt = 0.02, error = 0.1962 m</code></pre><p>הקטנת dt בחצי מחצית את השגיאה: התכנסות מסדר ראשון, עם <code>r_N − r_exact(T) = −½a·T·Δt</code>. בדקו קטן פי עשר לפני ההסבר.</p></section>
+<section><h2>המשך: סכמות מסדר גבוה יותר</h2><p>אוילר משמיט <code>½a(Δt)²</code> בכל צעד. קחו חצי צעד, העריכו את הנגזרת שם, ואז קחו את הצעד המלא: שיטה מסדר שני (מדויקת כאן בתאוצה קבועה). דגימות נוספות במקומות חכמים נותנות RK4. רקע אופציונלי — לא נדרש בקורס זה.</p></section>
+<section><h2>בדיקות מבחינות בין גבולות מספריים לפיסיקליים</h2><div class="grid three"><div class="card check"><h3>היסטוריה מיושרת</h3><p>כל הווקטורים גדלים באיבר אחד לכל צעד ומתחילים במצב ההתחלתי.</p></div><div class="card physics"><h3>עצירה</h3><p>ציינו איזה כלל עצר: חציית קרקע או סוף חלון הסימולציה.</p></div><div class="card math"><h3>עידון</h3><p>הקטינו את <code>dt</code> בחצי והשוו. זה בודק שגיאת צעד זמן, לא פיסיקה מושמטת.</p></div></div></section>
+<section><h2>המשך לעבודה</h2><div class="grid three"><div class="card"><h3>תרגול</h3><p>חיפוש חסום עם <code>while</code> לדגימת קירור ראשונה על הסף או מתחתיו; שוויון נחשב.</p></div><div class="card physics"><h3>תרגיל בית</h3><p>זריקת פטיש עם גרר ריבועי: קריאת חמישה קלטים, לולאה עד הדגימה הראשונה מתחת לקרקע או עד T, הדפסת מרחק ושמירת איור המסלול.</p></div><div class="card math"><h3>בונוס והמשך</h3><p>בונוס אופציונלי: השוואת אוילר קדמי, אוילר-קרומר ו-velocity Verlet לפי אנרגיה סופית. המשך חקר: הליכות אקראיות ודיפוזיה — מסלול אחד אינו סטטיסטיקת אנסמבל.</p></div></div><p><a href="../notebooks/lecture_03-he.ipynb">מחברת הרצה</a> · הבא: מטריצות וסיבובים בשבוע 4; פונקציות בשבוע 5.</p></section>
+<section><h3>עוד קוד מפרק זה</h3><p>הדוגמאות הנותרות מפרק הכתוב, לפי הסדר.</p><pre><code class="language-julia">for n in 1:3
     println(n)
 end</code></pre><pre class="output"><code>1
 2
-3</code></pre></section><section><h2>מעקב אחר משתנה צובר</h2><pre><code class="language-julia">let total = 0
-    for n in 1:4
-        total = total + n
-        println("n = $n, total = $total")
-    end
-end</code></pre><pre class="output"><code>n = 1, total = 1
-n = 2, total = 3
-n = 3, total = 6
-n = 4, total = 10</code></pre></section>
-<section><h2>טווחים אומרים אילו ערכים לבקר</h2><pre><code class="language-julia">for time in 0:2:10   # s
+3</code></pre><pre><code class="language-julia">for time in 0:2:10   # s
     println("time = $time s")
 end</code></pre><pre class="output"><code>time = 0 s
 time = 2 s
 time = 4 s
 time = 6 s
 time = 8 s
-time = 10 s</code></pre><p><code>a:step:b</code> מתקדם בצעד שנקבע בלי לעבור את הגבול; הקצה נכלל רק אם סדרת הצעדים מגיעה אליו. השילוב <code>$(time)</code> מכניס את הערך הנוכחי למחרוזת.</p></section>
-<section><h2>וקטורים שומרים סדר; Julia מתחילה ב־1</h2><pre><code class="language-julia">height = [1.0, 1.5, 2.0, 2.5]   # m
-println(length(height))
-println(height[1], ", ", height[end])
-println(height[2:3])</code></pre><pre class="output"><code>4
-1.0, 2.5
-[1.5, 2.0]</code></pre><p><code>end</code> הוא האינדקס האחרון; חיתוך בוחר חלק. כאן הפרוסה <code>height[2:3]</code> היא העתק.</p></section>
-<section><h2>אינדקסים או ערכים?</h2><div class="grid"><div><pre><code class="language-julia">part = height[2:3]
-part[1] = 99.0
-println(height)
-for i in eachindex(height)
-    println("sample $i: $(height[i]) m")
-end</code></pre><pre class="output"><code>[1.0, 1.5, 2.0, 2.5]
-sample 1: 1.0 m
-sample 2: 1.5 m
-sample 3: 2.0 m
-sample 4: 2.5 m</code></pre><p><code>eachindex</code> מתאים כאשר נדרשים מיקום, וקטורים תואמים או הצבה לפי אינדקס. שינוי <code>part[1]</code> אינו משנה את <code>height</code>, כי פרוסה היא העתק.</p></div><div><p>כאשר רק הערכים חשובים, איטרציה ישירה <code>for value in height</code> ברורה יותר. נשתמש בה כשלאינדקס אין משמעות.</p><p>עבור כמה וקטורים מתואמים נוודא תחילה שאורכיהם שווים, ואז נשתמש באותו אינדקס.</p></div></div></section>
-<section><h2>בניית וקטור ואיטרציה על תווים</h2><pre><code class="language-julia">squares = Int[]
-for n in 1:4
-    push!(squares, n^2)
-end
-println(squares)</code></pre><pre class="output"><code>[1, 4, 9, 16]</code></pre><pre><code class="language-julia">let result = ""
-    for character in "orbit"
-        result = string(character, result)
+time = 10 s</code></pre><pre><code class="language-julia">begin v = [4, 9, 2, 7]
+    largest = v[1]
+    for x in v
+        if x > largest
+            largest = x
+        end
     end
-    println(result)
-end</code></pre><pre class="output"><code>tibro</code></pre><p><code>Int[]</code> יוצר וקטור שלמים ריק, ו־<code>push!</code> מוסיפה לסופו ומשנה אותו. המעבר על תווים קצר ואינו מניח דבר על מיקומם בזיכרון.</p></section><section><h2>סיכום מדידות</h2><pre><code class="language-julia">using Statistics
-measurements = [1.0, 2.0, 3.0]   # m
-println(mean(measurements))
-println(std(measurements))</code></pre><pre class="output"><code>2.0
-1.0</code></pre><p><code>Statistics</code> הוא מודול מהספרייה התקנית. ברירת המחדל של <code>std</code> משתמשת במכנה n−1, ומסלול אינו בהכרח מדידות חוזרות בלתי תלויות. הגדרת פונקציות שייכת לשבוע 5.</p></section>
-<section><h2>עצירה מוקדמת ולולאת <code>while</code></h2><pre><code class="language-julia">for n in 1:10
-    if n^2 &gt;= 20
-        println("first square at least 20 is $(n^2)")
-        break
-    end
-end</code></pre><pre class="output"><code>first square at least 20 is 25</code></pre><pre><code class="language-julia">let count = 1
-    while count &lt;= 3
-        println(count)
-        count = count + 1
-    end
-end</code></pre><pre class="output"><code>1
-2
-3</code></pre><p><code>break</code> יוצאת מיד מהלולאה הקרובה; <code>while</code> בודק את התנאי לפני כל חזרה, ולכן ייתכן שהגוף לא יתבצע כלל.</p></section><section><h2>עדכון אוילר: שתי השורות שחוזרות</h2><div class="grid"><div class="card math"><p>ל־Δt קטן: <code>xₙ₊₁=xₙ+vₓ,ₙΔt</code>, ‏<code>yₙ₊₁=yₙ+vᵧ,ₙΔt</code>.</p></div><div class="card physics"><p>ללא גרר, g אחיד, +x אופקי ו־+y למעלה: <code>vₓ,ₙ₊₁=vₓ,ₙ</code>, ‏<code>vᵧ,ₙ₊₁=vᵧ,ₙ−gΔt</code>.</p></div></div><p>מעדכנים מקום עם המהירות הישנה ורק אז מהירות: זו מוסכמת אוילר של השיעור.</p></section>
-<section><h2>שומרים את המסלול הנדגם המלא</h2><pre><code class="language-julia">using Plots
-g = 9.81        # m/s^2
-dt = 0.05       # s
-t = [0.0]       # s
-x = [0.0]       # m
-y = [1.0]       # m
-vx = [10.0 * cosd(45.0)]   # m/s
-vy = [10.0 * sind(45.0)]   # m/s
-while y[end] &gt; 0.0
-    push!(t, t[end] + dt)
-    push!(x, x[end] + vx[end] * dt)
-    push!(y, y[end] + vy[end] * dt)
-    push!(vx, vx[end])
-    push!(vy, vy[end] - g * dt)
-end
-trajectory = plot(x, y; xlabel="x (m)", ylabel="y (m)",
-                  label="Euler samples")
-display(trajectory)
-println("samples = $(length(t)); landed = $(y[end] &lt;= 0)")</code></pre><pre class="output"><code>samples = 34; landed = true</code></pre></section>
-<section><h2>נשרטט בכנות ונעדן את צעד הזמן</h2><img src="trajectory-euler.svg" alt="מסלול אנליטי ללא גרר ומסלולי אוילר בשני צעדי זמן" style="width:92%;display:block;margin:auto"><p><code>dt=0.05 s</code>: חצייה ראשונה 1.65 s, טווח 11.667 m. ‏<code>dt=0.025 s</code>: 1.60 s, ‏11.314 m. אנליטי ללא גרר: 1.571 s, ‏11.111 m.</p></section>
-<section><h2>בדיקות מפרידות בין מגבלה נומרית לפיזיקלית</h2><div class="grid three"><div class="card check"><h3>היסטוריות תואמות</h3><p>לחמשת הווקטורים אורך שווה והם מתחילים ב־<code>t=0</code>.</p></div><div class="card physics"><h3>מוסכמת עצירה</h3><p>הנקודה האחרונה היא הדגימה הראשונה שבה <code>y≤0</code>, לא נקודת הפגיעה המדויקת.</p></div><div class="card math"><h3>עידון</h3><p>מחלקים <code>dt</code> לשניים ומשווים. זה בודק שגיאת צעד, לא גרר או פגיעה חסרים.</p></div></div></section>
-<section><h2>העברה</h2><div class="grid three"><div class="card"><h3>תרגול</h3><p>חיפוש <code>while</code> חסום לזמן הקירור הנדגם הראשון שמתחת לסף או שווה לו.</p></div><div class="card physics"><h3>תרגיל בית</h3><p>קליע ממרפסת: מצב התחלתי, דגימת קרקע ראשונה והשוואת שני צעדי זמן.</p></div><div class="card math"><h3>להעמקה</h3><p>הליכות אקראיות דטרמיניסטיות ואז דיפוזיה מאנסמבל; מסלול אחד אינו סטטיסטיקת אנסמבל.</p></div></div><p><a href="../notebooks/lecture_03-he.ipynb">מחברת ההרצאה</a> · הבא: פונקציות הופכות כלי פיזיקה חוזרים לניתנים לבדיקה.</p></section>
-</div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script><script>Reveal.initialize({hash:true,slideNumber:true,transition:"fade",plugins:[RevealHighlight]});</script></body></html>
+    println(largest)
+end</code></pre><pre class="output"><code>9</code></pre></section>
+</div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script><script>Reveal.initialize({hash:true,slideNumber:true});</script></body></html>

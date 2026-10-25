@@ -6,7 +6,7 @@
 </style></head><body><div class="reveal"><div class="slides">
 <section><h1>תרגול שבוע 3</h1><h2>קירור עד לסף</h2><p>נעקוב אחר תנאי, עדכון ונקודת עצירה.</p><p data-course-notebook-link="complete"><a href="../notebooks/recitation_03-he.ipynb">מחברת התרגול המלאה</a></p></section>
 <section><h2>תזכורת</h2><p>לולאת <bdi>for</bdi> עוברת על ערכים ידועים; לולאת <bdi>while</bdi> נעצרת כשהתנאי שקר. בכל לולאה נזהה אתחול, תנאי, עדכון ונימוק עצירה.</p></section>
-<section><h2>קירור נדגם</h2><p>בכל דקה Tₖ₊₁ = 0.9Tₖ. נחפש את הדגימה הראשונה שמגיעה ל-81°C; שוויון נחשב להגעה לסף.</p><pre><code class="language-julia">let temperature = 100.0   # C
+<section><h2>קירור נדגם</h2><p>בכל דקה Tₖ₊₁ = 0.9Tₖ. נחפש את הדגימה הראשונה שמגיעה ל-81°C; שוויון נחשב להגעה לסף.</p><pre><code class="language-julia">begin temperature = 100.0   # C
 threshold = 81.0          # C
 minute = 0
 while temperature > threshold
@@ -15,5 +15,5 @@ while temperature > threshold
 end
 println((minute, temperature))
 end</code></pre><pre class="output"><code>(2, 81.0)</code></pre><p>הפלט הוא <bdi>(2, 81.0)</bdi>. ללא עדכון הטמפרטורה, הלולאה אינה נעצרת.</p></section>
-<section><h2>מעקב והעברה</h2><p>בדגימה 0: 100; בדגימה 1: 90; בדגימה 2: 81. התנאי המחמיר <bdi>temperature &gt; threshold</bdi> עוצר בדיוק בשוויון.</p><p>בעבודה הנתמכת נתחיל את מסלול המרפסת: נשמור <bdi>t, x, y, vx, vy</bdi>, נבדוק אורכים שווים ודגימת נחיתה ראשונה, ונשווה <bdi>dt</bdi> ל-<bdi>dt/2</bdi>.</p><p><a href="../notebooks/recitation_03-he.ipynb">פתחו את מחברת התרגול</a> · <span>HW3 — not yet released / under revision</span></p></section>
+<section><h2>מעקב והעברה</h2><p>בדגימה 0: 100; בדגימה 1: 90; בדגימה 2: 81. התנאי המחמיר <bdi>temperature &gt; threshold</bdi> עוצר בדיוק בשוויון.</p><p>בעבודה הנתמכת נתחיל את תרגיל הבית 3: תוכנית מלאה הקוראת חמישה קלטים, מחקה זריקת פטיש עם גרר ריבועי עד לדגימה המוצעת הראשונה מתחת לקרקע או עד זמן T, מדפיסה את מרחק הנחיתה ושומרת את איור המסלול. הלולאה משתמשת באותם רעיונות של גידול ועצירה כמו לולאת הקירור.</p><p><a href="../notebooks/recitation_03-he.ipynb">פתחו את מחברת התרגול</a></p></section>
 </div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script><script>Reveal.initialize({hash:true,slideNumber:true,plugins:[RevealHighlight]});</script></body></html>

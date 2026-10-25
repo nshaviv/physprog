@@ -6,7 +6,7 @@
 </style></head><body><div class="reveal"><div class="slides">
 <section><h1>Week 3 recitation</h1><h2>Cooling to a threshold</h2><p>Trace the condition, update, and stopping point.</p><p><a href="../notebooks/recitation_03-en.ipynb">Open the notebook</a></p><p data-course-notebook-link="complete"><a href="../notebooks/recitation_03-en.ipynb">Complete recitation notebook</a></p></section>
 <section><h2>Quick recap</h2><ul><li><code>for</code>: known values; <code>while</code>: stop when a condition is false.</li><li>Every while loop needs initialization, condition, update, and a termination argument.</li><li>Vectors use 1-based indexing; use <code>end</code>, <code>length</code>, <code>eachindex</code>, and <code>push!</code>.</li></ul></section>
-<section><h2>Sampled cooling</h2><p>At each minute, <code>Tₖ₊₁ = 0.9Tₖ</code>. We seek the first sample that reaches 81 °C; equality counts. This is a discrete model, not a derivation of Newton cooling.</p><pre><code class="language-julia">let temperature = 100.0   # C
+<section><h2>Sampled cooling</h2><p>At each minute, <code>Tₖ₊₁ = 0.9Tₖ</code>. We seek the first sample that reaches 81 °C; equality counts. This is a discrete model, not a derivation of Newton cooling.</p><pre><code class="language-julia">begin temperature = 100.0   # C
 threshold = 81.0          # C
 minute = 0
 while temperature &gt; threshold
@@ -16,5 +16,5 @@ end
 println((minute, temperature))
 end</code></pre><p>Output: <code>(2, 81.0)</code>.</p></section>
 <section><h2>Trace it</h2><table><tr><th>sample</th><th>temperature [°C]</th></tr><tr><td>0</td><td>100</td></tr><tr><td>1</td><td>90</td></tr><tr><td>2</td><td>81</td></tr></table><p>The strict condition <code>temperature &gt; threshold</code> stops at equality. If the update is missing, the loop does not terminate.</p></section>
-<section><h2>Supported work</h2><p>Begin the balcony trajectory task: store <code>t, x, y, vx, vy</code>, include the first sampled <code>y ≤ 0</code>, and compare two timesteps. Function definitions come in Week 5.</p></section>
+<section><h2>Supported work</h2><p>Begin HW 3: a complete program that reads five inputs, simulates a hammer throw with quadratic drag until the first proposed below-ground sample or time T, prints the landing distance, and saves the trajectory figure. The loop uses the same array growth and stopping ideas as the cooling loop; function definitions come in Week 5.</p></section>
 </div></div><script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script><script>Reveal.initialize({hash:true,slideNumber:true});</script></body></html>

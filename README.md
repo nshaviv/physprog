@@ -23,6 +23,12 @@ There is a one-page web index with the same links at
 
 ## Running the code (optional)
 
+The [Week 3 Julia examples](examples/week03-examples.jl) collect the lecture
+snippets, including the Euler trajectory plot. Run each complete `begin … end`
+block in the Julia REPL or send it from VS Code with Shift+Enter. These examples
+are intended for interactive use; running the file as a standalone script uses
+different loop-variable rules.
+
 To run the examples, install Julia and the recorded environment — see
 [STUDENT_SETUP.md](STUDENT_SETUP.md), and [INSTALL.md](INSTALL.md) for common
 installation problems (for example, telling VS Code where Julia is), plus the
