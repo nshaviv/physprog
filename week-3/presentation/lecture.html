@@ -48,15 +48,13 @@ append!(v, [5, 6]); println(v)
 pop!(v); println(v)
 insert!(v, 2, 99); println(v)
 deleteat!(v, 2); println(v)
-w = vcat(v, [7, 8]); println(w); println(v)
-w2 = [v; 7; 8]; println(w2)</code></pre><pre class="output"><code>[1, 2, 3, 4]
+w = vcat(v, [7, 8]); println(w); println(v)</code></pre><pre class="output"><code>[1, 2, 3, 4]
 [1, 2, 3, 4, 5, 6]
 [1, 2, 3, 4, 5]
 [1, 99, 2, 3, 4, 5]
 [1, 2, 3, 4, 5]
 [1, 2, 3, 4, 5, 7, 8]
-[1, 2, 3, 4, 5]
-[1, 2, 3, 4, 5, 7, 8]</code></pre><p>The trailing <code>!</code> marks a mutating operation. <code>push!</code> adds one value, <code>append!</code> adds each element, <code>vcat</code> builds a new vector.</p></section>
+[1, 2, 3, 4, 5]</code></pre><p>The trailing <code>!</code> marks a mutating operation. <code>push!</code> adds one value, <code>append!</code> adds each element, <code>vcat</code> builds a new vector.</p></section>
 <section><h2>Vector arithmetic</h2><pre><code class="language-julia">a = [1.0, 2.0, 3.0]
 b = [4.0, 5.0, 6.0]
 println(a + b)
@@ -157,66 +155,70 @@ println(std(measurements))</code></pre><pre class="output"><code>2.0
         println("first square at least 20 is $(n^2)")
         break
     end
-end</code></pre><pre class="output"><code>first square at least 20 is 25</code></pre><pre><code class="language-julia">begin count = 1
-    while count <= 3
-        println(count)
-        count = count + 1
-    end
-end</code></pre><pre class="output"><code>1
+end</code></pre><pre class="output"><code>first square at least 20 is 25</code></pre><pre class="output"><code>1
 2
 3</code></pre><p>Test, then update. Missing the increment repeats forever; a wrong inequality can skip a boundary event.</p></section>
 <section><h2>Euler update: derive the lines we repeat</h2><div class="grid"><div class="card math"><p>For a small interval Δt: <code>rₙ₊₁ = rₙ + vₙ Δt</code>, then <code>vₙ₊₁ = vₙ + aₙ Δt</code> with vector state <code>r=(x,y)</code>, <code>v=(vx,vy)</code>, <code>a=(0,−g)</code>.</p></div><div class="card physics"><p>No drag, uniform gravity, +x horizontal and +y upward. Position uses the old velocity; that is the published Euler convention.</p></div></div></section>
-<section><h2>First simulation</h2><pre><code class="language-julia">g = 9.81        # m/s^2
-speed = 20.0    # m/s
-angle = pi / 4
-r = [0.0, 0.0]   # m
-v = [speed * cos(angle), speed * sin(angle)]   # m/s
-a = [0.0, -g]    # m/s^2
-dt = 0.1         # s
-T = 2.0          # s
-N = round(Int, T / dt)
-trajectory_x = [r[1]]
-trajectory_y = [r[2]]
-velocities_x = [v[1]]
-velocities_y = [v[2]]
-for step in 1:N
-    r = r + v * dt
-    v = v + a * dt
-    push!(trajectory_x, r[1])
-    push!(trajectory_y, r[2])
-    push!(velocities_x, v[1])
-    push!(velocities_y, v[2])
-end
-println(&quot;Euler final position: &quot;, round(r[1]; digits=4), &quot;, &quot;, round(r[2]; digits=4))</code></pre><pre class="output"><code>Euler final position: 28.2843, 9.6453</code></pre><p>Fixed final time T before landing, so every run we compare ends at the same time. The coordinate and velocity vectors store one sample per step.</p></section>
-<section><h2>Plot samples against the exact path</h2><pre><code class="language-julia">using Plots
-r0 = [0.0, 0.0]
-v0 = [speed * cos(angle), speed * sin(angle)]
-exact_trajectory_x = Float64[]
-exact_trajectory_y = Float64[]
-for t in 0:dt:T
-    push!(exact_trajectory_x, r0[1] + v0[1] * t + 0.5 * a[1] * t^2)
-    push!(exact_trajectory_y, r0[2] + v0[2] * t + 0.5 * a[2] * t^2)
-end
-p = plot(title=&quot;Projectile Motion: Euler vs Exact&quot;,
-         xlabel=&quot;x (m)&quot;, ylabel=&quot;y (m)&quot;, frame=:box)
-p = plot!(p, trajectory_x, trajectory_y, label=&quot;Euler&quot;, lw=2)
-p = scatter!(p, trajectory_x, trajectory_y, label=:none, lw=2)
-p = plot!(p, exact_trajectory_x, exact_trajectory_y, label=&quot;Exact&quot;, lw=2, ls=:dash)
-display(p)</code></pre><p>The markers are the stored Euler samples; the dashed curve is the exact parabola. At t=T the sample sits above the exact point by g·T·dt/2 = 0.981 m.</p></section>
-<section><h2>Euler vs exact: graphical output</h2><img src="../../assets/figures/week3-euler-trajectory.png" alt="Euler samples and exact projectile trajectory" style="width:85%"></section><section><h2>Refine and compare with the exact answer</h2><pre><code class="language-julia">using LinearAlgebra
-g = 9.81; speed = 20.0; angle = pi / 4; T = 2.0
-r0 = [0.0, 0.0]
-v0 = [speed * cos(angle), speed * sin(angle)]
-a = [0.0, -g]
-for dt in (0.2, 0.1, 0.05, 0.02)
-    r = copy(r0); v = copy(v0)
-    N = round(Int, T / dt)
+<section><h2>First simulation</h2><pre style="max-height:470px;overflow-y:auto"><code class="language-julia">using Plots
+let
+    trajectory_x = Float64[]
+    trajectory_y = Float64[]
+    velocities_x = Float64[]
+    velocities_y = Float64[]
+    g = 9.81;        # gravity in m/s^2
+    speed = 20.0;    # initial speed in m/s
+    theta = pi / 4;  # initial angle in radians
+    dt = 0.1;        # time step in seconds
+    T = 2.0          # total time in seconds
+    r = [0.0, 0.0]   # m
+    v = [speed * cos(theta), speed * sin(theta)]   # m/s
+    a = [0.0, -g]    # m/s^2
+    N = round(Int, T / dt)  # number of time steps
+    trajectory_x = [r[1]]
+    trajectory_y = [r[2]]
+    velocities_x = [v[1]]
+    velocities_y = [v[2]]
     for step in 1:N
         r = r + v * dt
         v = v + a * dt
+        push!(trajectory_x, r[1])
+        push!(trajectory_y, r[2])
+        push!(velocities_x, v[1])
+        push!(velocities_y, v[2])
     end
-    exact = r0 + v0 * T + 0.5 * a * T^2
-    println("dt = $dt, error = ", round(norm(r - exact); digits=4), " m")
+    println(&quot;Euler final position: &quot;, round(r[1]; digits=4), &quot;, &quot;, round(r[2]; digits=4))
+    r0 = [0.0, 0.0]
+    v0 = [speed * cos(theta), speed * sin(theta)]
+    p = plot(title=&quot;Projectile Motion: Euler vs Exact&quot;, xlabel=&quot;x (m)&quot;, ylabel=&quot;y (m)&quot;, frame=:box)
+    p = plot!(p, trajectory_x, trajectory_y, label=&quot;Euler&quot;, lw=2)
+    p = scatter!(p, trajectory_x, trajectory_y, label=:none, lw=2)
+    exact_trajectory_x = Float64[]
+    exact_trajectory_y = Float64[]
+    ts = 0:dt:T
+    for t in ts
+        push!(exact_trajectory_x, r0[1] + v0[1] * t + 0.5 * a[1] * t^2)
+        push!(exact_trajectory_y, r0[2] + v0[2] * t + 0.5 * a[2] * t^2)
+    end
+    p = plot!(p, exact_trajectory_x, exact_trajectory_y, label=&quot;Exact&quot;, lw=2, ls=:dash)
+    display(p)
+end</code></pre><pre class="output"><code>Euler final position: 28.2843, 9.6453</code></pre><p>Fixed final time T before landing, so every run we compare ends at the same time. The coordinate and velocity vectors store one sample per step. Run the complete let block: its simulation and plot share a local work area; we revisit scope with functions. Run the complete let block: its simulation and plot share a local work area; we revisit scope with functions.</p></section>
+<section><h2>Plot samples against the exact path</h2><p>The markers are the stored Euler samples; the dashed curve is the exact parabola. At t=T the sample sits above the exact point by g·T·dt/2 = 0.981 m.</p></section>
+<section><h2>Euler vs exact: graphical output</h2><img src="../../assets/figures/week3-euler-trajectory.png" alt="Euler samples and exact projectile trajectory" style="width:85%"></section><section><h2>Refine and compare with the exact answer</h2><pre><code class="language-julia">using LinearAlgebra
+let
+    g = 9.81; speed = 20.0; theta = pi / 4; T = 2.0
+    r0 = [0.0, 0.0]
+    v0 = [speed * cos(theta), speed * sin(theta)]
+    a = [0.0, -g]
+    for dt in (0.2, 0.1, 0.05, 0.02)
+        r = copy(r0); v = copy(v0)
+        N = round(Int, T / dt)
+        for step in 1:N
+            r = r + v * dt
+            v = v + a * dt
+        end
+        exact = r0 + v0 * T + 0.5 * a * T^2
+        println(&quot;dt = $dt, error = &quot;, round(norm(r - exact); digits=4), &quot; m&quot;)
+    end
 end</code></pre><pre class="output"><code>dt = 0.2, error = 1.962 m
 dt = 0.1, error = 0.981 m
 dt = 0.05, error = 0.4905 m

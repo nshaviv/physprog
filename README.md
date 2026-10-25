@@ -25,7 +25,7 @@ There is a one-page web index with the same links at
 
 The [Week 3 Julia examples](examples/week03-examples.jl) collect the lecture
 snippets, including the Euler trajectory plot. Run each complete `begin … end`
-block in the Julia REPL or send it from VS Code with Shift+Enter. These examples
+or `let … end` block in the Julia REPL or send it from VS Code with Shift+Enter. These examples
 are intended for interactive use; running the file as a standalone script uses
 different loop-variable rules.
 
