@@ -11,7 +11,8 @@ You can read everything with no software installed.
 
 - **Read the lecture book:** [`classnotes/notes-en/main.pdf`](classnotes/notes-en/main.pdf)
   (also [עברית](classnotes/notes-he/main.pdf) · [العربية](classnotes/notes-ar/main.pdf)).
-- **Homework and bonus:** `week-N/HW{N}-{lang}.pdf`, `week-N/Bonus{N}-{lang}.pdf`.
+- **Homework and bonus:** `week-N/HW{N}-{lang}.pdf`, `week-N/Bonus{N}-{lang}.pdf`,
+  `week-N/Bonus{N}-averaging-{lang}.pdf` (the Week 4 optional extra).
   Homework is submitted on the course **Moodle** page. From Week 2, paste the
   complete core program into the CodeRunner answer box.
   **HW3 is withheld pending revision.** The Week 3 teaching material remains available.
@@ -24,7 +25,11 @@ There is a one-page web index with the same links at
 ## Running the code (optional)
 
 The [Week 3 Julia examples](examples/week03-examples.jl) collect the lecture
-snippets, including the Euler trajectory plot. Run each complete `begin … end`
+snippets, including the Euler trajectory plot. The
+[Week 4 examples](examples/week04-examples.jl) cover matrices, nested loops,
+`while` loops, and rotations; the four keyboard-input examples there are also
+split into standalone scripts under `examples/week04_readline_examples/`, which
+run cleanly from a terminal. Run each complete `begin … end`
 or `let … end` block in the Julia REPL or send it from VS Code with Shift+Enter. These examples
 are intended for interactive use; running the file as a standalone script uses
 different loop-variable rules.
@@ -47,9 +52,9 @@ use the course environment and data from anywhere.
 classnotes/notes-{en,he,ar}/main.pdf          lecture book
 recitations/recitation-{en,he,ar}/main.pdf     recitation book
 further-reading/                               optional self-study companion
-week-0-intro/  week-1/  week-2/  week-3/       per-week materials
+week-0-intro/  week-1/  week-2/  week-3/  week-4/   per-week materials
     presentation/        Reveal slides (English, Hebrew)
-    HWn-{lang}.pdf        released homework assignments (currently Weeks 1–2)
+    HWn-{lang}.pdf        released homework assignments (Weeks 1–2 and 4; Week 3 withheld)
     Bonusn-{lang}.pdf     optional bonus assignment
     notebooks/            lecture_nn-{lang}.ipynb, recitation_nn-{lang}.ipynb
 assets/figures/  assets/data/                  figures and CSV data
