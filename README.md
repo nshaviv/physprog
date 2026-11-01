@@ -15,7 +15,6 @@ You can read everything with no software installed.
   `week-N/Bonus{N}-averaging-{lang}.pdf` (the Week 4 optional extra).
   Homework is submitted on the course **Moodle** page. From Week 2, paste the
   complete core program into the CodeRunner answer box.
-  **HW3 is withheld pending revision.** The Week 3 teaching material remains available.
 - **Slides:** `week-N/presentation/`.
 - **Recitation book:** `recitations/recitation-{lang}/main.pdf`.
 
@@ -54,7 +53,7 @@ recitations/recitation-{en,he,ar}/main.pdf     recitation book
 further-reading/                               optional self-study companion
 week-0-intro/  week-1/  week-2/  week-3/  week-4/   per-week materials
     presentation/        Reveal slides (English, Hebrew)
-    HWn-{lang}.pdf        released homework assignments (Weeks 1–2 and 4; Week 3 withheld)
+    HWn-{lang}.pdf        released homework assignments (Weeks 1–4)
     Bonusn-{lang}.pdf     optional bonus assignment
     notebooks/            lecture_nn-{lang}.ipynb, recitation_nn-{lang}.ipynb
 assets/figures/  assets/data/                  figures and CSV data
