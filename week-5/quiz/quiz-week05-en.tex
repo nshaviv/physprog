@@ -1,0 +1,73 @@
+\documentclass[11pt]{article}
+\input{../../notes-en/structure}
+\hypersetup{pdftitle={},pdfauthor={}}
+\begin{document}
+\begin{center}
+{\LARGE\sffamily\bfseries\color{deepblue} Week 5 Bonus Quiz}\\[.2cm]
+{\large Functions that work on lists, without \texttt{LinearAlgebra}}
+\end{center}
+
+\noindent Both questions are optional bonus questions. The grading environment has
+no \texttt{LinearAlgebra}, so \texttt{dot} and \texttt{norm} are unavailable: write
+the loop yourself.
+
+\section*{Question 2 --- normalized inner product}
+Write a function that receives two lists of numbers and returns their inner
+product, normalized by their lengths:
+\[
+\frac{a\cdot b}{|a|\,|b|}.
+\]
+Signature:
+\begin{lstlisting}
+function norm_inner_product(v1, v2)
+    # ...
+end
+\end{lstlisting}
+Return value: a number. You may assume the input is two lists containing only
+\texttt{Int} or \texttt{Float64} values.
+\begin{itemize}
+\item If the lists have different lengths, return \texttt{nothing}.
+\item If the lists are empty, return \texttt{0}.
+\end{itemize}
+A zero vector makes the normalized product undefined; the tests do not include
+that case.
+
+Example: for \texttt{v1 = [3.0, 4.0]} and \texttt{v2 = [6.0, 8.0]} the result is
+\texttt{1.0}. For \texttt{[1.0, 0.0]} and \texttt{[0.0, 1.0]} it is \texttt{0.0}.
+
+\section*{Question 4 --- counting orthogonal pairs}
+Two vectors are orthogonal when their inner product is zero. Write a function
+that receives a list of vectors (a list of lists) and returns the number of pairs
+of vectors that are orthogonal to each other:
+\begin{lstlisting}
+function num_of_orthogonal(vectors)
+    # ...
+end
+\end{lstlisting}
+Return value: the number of orthogonal pairs in the list.
+
+\begin{lstlisting}
+num_of_orthogonal([[1, 0, 0], [0, 1, 0], [0, 0, 1]])              # 3
+num_of_orthogonal([[0, 0, 0], [0, 1, 0], [0, 0, 1]])              # 3
+num_of_orthogonal([[0, 0], [1, 2], [10, 5]])                      # 2
+num_of_orthogonal([[1, 1, 1, 1], [2, 1, 3, 3], [0, 0, 100, 33],
+                   [8, 8, 8, 1.5], [9, 9, 9, 9]])                 # 0
+\end{lstlisting}
+You may assume that the input is a list, that the inner lists have equal length,
+and that they contain only numbers. Count each pair once: the pair $(i,j)$ and
+the pair $(j,i)$ are the same pair, and a vector is not paired with itself.
+Avoid duplicated code; use one inner-product helper for both questions.
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Call & Result \\
+\midrule
+\texttt{norm\_inner\_product([1.0, 0.0], [-1.0, 0.0])} & \texttt{-1.0} \\
+\texttt{norm\_inner\_product([1, 2, 3], [1, 2])} & \texttt{nothing} \\
+\texttt{norm\_inner\_product(Float64[], Float64[])} & \texttt{0} \\
+\texttt{num\_of\_orthogonal} on the 4D basis & \texttt{6} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{document}

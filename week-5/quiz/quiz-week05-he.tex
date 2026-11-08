@@ -1,0 +1,79 @@
+\documentclass[11pt]{article}
+\input{../../notes-he/structure}
+\hypersetup{pdftitle={},pdfauthor={}}
+\begin{document}
+\begin{center}
+{\LARGE\sffamily\bfseries\color{deepblue} קוויז בונוס --- שבוע 5}\\[.2cm]
+{\large פונקציות על רשימות, ללא \eng{LinearAlgebra}}
+\end{center}
+
+\noindent שתי השאלות הן שאלות בונוס אופציונליות. בסביבת הבדיקה אין את החבילה
+\eng{\texttt{LinearAlgebra}}, ולכן אין \eng{\texttt{dot}} או \eng{\texttt{norm}}:
+יש לכתוב את הלולאה בעצמכם.
+
+\section*{שאלה 2 --- מכפלה פנימית מנורמלת}
+כתבו פונקציה המקבלת שתי רשימות של מספרים ומחזירה את המכפלה הפנימית שלהן,
+מנורמלת לאורכים:
+\[
+\frac{a\cdot b}{|a|\,|b|}.
+\]
+חתימת הפונקציה:
+\begin{latin}
+\begin{lstlisting}
+function norm_inner_product(v1, v2)
+    # ...
+end
+\end{lstlisting}
+\end{latin}
+פלט הפונקציה: מספר. ניתן להניח שהקלט הוא אכן שתי רשימות המכילות מספרים מסוג
+\eng{\texttt{Int}} או \eng{\texttt{Float64}} בלבד.
+\begin{itemize}
+\item אם הרשימות אינן באותו אורך, הפונקציה צריכה להחזיר \eng{\texttt{nothing}}.
+\item אם הרשימות ריקות, הפונקציה צריכה להחזיר \eng{\texttt{0}}.
+\end{itemize}
+וקטור האפס הופך את המכפלה המנורמלת לבלתי מוגדרת; הבדיקות אינן כוללות מקרה כזה.
+
+דוגמה: עבור \eng{\texttt{v1 = [3.0, 4.0]}} ו-\eng{\texttt{v2 = [6.0, 8.0]}} התוצאה
+היא \eng{\texttt{1.0}}. עבור \eng{\texttt{[1.0, 0.0]}} ו-\eng{\texttt{[0.0, 1.0]}}
+התוצאה היא \eng{\texttt{0.0}}.
+
+\section*{שאלה 4 --- ספירת זוגות אורתוגונליים}
+שני וקטורים אורתוגונליים זה לזה אם המכפלה הפנימית ביניהם היא אפס. כתבו פונקציה
+המקבלת רשימה של וקטורים (רשימה של רשימות) ומחזירה את מספר הזוגות של הווקטורים
+הניצבים זה לזה:
+\begin{latin}
+\begin{lstlisting}
+function num_of_orthogonal(vectors)
+    # ...
+end
+\end{lstlisting}
+\end{latin}
+פלט הפונקציה: מספר הזוגות של הווקטורים הניצבים זה לזה ברשימה.
+
+\begin{latin}
+\begin{lstlisting}
+num_of_orthogonal([[1, 0, 0], [0, 1, 0], [0, 0, 1]])              # 3
+num_of_orthogonal([[0, 0, 0], [0, 1, 0], [0, 0, 1]])              # 3
+num_of_orthogonal([[0, 0], [1, 2], [10, 5]])                      # 2
+num_of_orthogonal([[1, 1, 1, 1], [2, 1, 3, 3], [0, 0, 100, 33],
+                   [8, 8, 8, 1.5], [9, 9, 9, 9]])                 # 0
+\end{lstlisting}
+\end{latin}
+ניתן להניח כי הקלט הוא אכן רשימה, שהרשימות הפנימיות באותו אורך, ושאינן מכילות
+ערכים שאינם מספרים. כל זוג נספר פעם אחת בלבד: הזוג \eng{(i, j)} והזוג
+\eng{(j, i)} הם אותו זוג, ואין לספור וקטור עם עצמו. המנעו מכפילויות קוד;
+היעזרו בפונקציית עזר אחת למכפלה פנימית בשתי השאלות.
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+קריאה & תוצאה \\
+\midrule
+\eng{\texttt{norm\_inner\_product([1.0, 0.0], [-1.0, 0.0])}} & \eng{\texttt{-1.0}} \\
+\eng{\texttt{norm\_inner\_product([1, 2, 3], [1, 2])}} & \eng{\texttt{nothing}} \\
+\eng{\texttt{norm\_inner\_product(Float64[], Float64[])}} & \eng{\texttt{0}} \\
+\eng{\texttt{num\_of\_orthogonal}} על בסיס אורתונורמלי ב-4 ממדים & \eng{\texttt{6}} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{document}
