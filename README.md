@@ -1,7 +1,8 @@
 # Physics Programming — student materials (77641)
 
 Student materials for the first-year course **77641 Physics Programming
-(Julia + Python)**: the orientation chapter and Weeks 1–3. English is the default;
+(Julia + Python)**: the orientation chapter and lecture notes and assignments
+through Week 6. English is the default;
 the books and assignments are also available in Hebrew and Arabic, and the slides
 in English and Hebrew.
 
@@ -13,10 +14,17 @@ You can read everything with no software installed.
   (also [עברית](classnotes/notes-he/main.pdf) · [العربية](classnotes/notes-ar/main.pdf)).
 - **Homework and bonus:** `week-N/HW{N}-{lang}.pdf`, `week-N/Bonus{N}-{lang}.pdf`,
   `week-N/Bonus{N}-averaging-{lang}.pdf` (the Week 4 optional extra).
-  Homework is submitted on the course **Moodle** page. From Week 2, paste the
-  complete core program into the CodeRunner answer box.
-- **Slides:** `week-N/presentation/`.
-- **Recitation book:** `recitations/recitation-{lang}/main.pdf`.
+  Homework is submitted on the course **Moodle** page. Weeks 2–5 use complete
+  core programs in CodeRunner; Week 6 uses function definitions. Follow the
+  submission instructions on each assignment sheet.
+- **Slides:** `week-N/presentation/` (Weeks 0–3).
+- **Recitation book:** `recitations/recitation-{lang}/main.pdf` (through Week 5).
+
+Release: **Week 6, November 15, 2026**. Lecture cutoff: 6; homework/bonus
+cutoff: 6; worked-solution cutoff: −1 (none released). Week 6 slides,
+recitation notes, and notebooks are not yet available.
+The instructor source revision and complete file checksums are recorded in
+[`RELEASE.json`](RELEASE.json).
 
 There is a one-page web index with the same links at
 [nshaviv.github.io/physprog](https://nshaviv.github.io/physprog/).
@@ -32,6 +40,11 @@ run cleanly from a terminal. Run each complete `begin … end`
 or `let … end` block in the Julia REPL or send it from VS Code with Shift+Enter. These examples
 are intended for interactive use; running the file as a standalone script uses
 different loop-variable rules.
+
+The [Week 6 Julia examples](examples/week06-examples.jl) cover functions as
+arguments, complex numbers, dispatch, tuples, and collection operations. Run
+them section by section: several calls deliberately demonstrate errors and
+will stop a whole-file run.
 
 To run the examples, install Julia and the recorded environment — see
 [STUDENT_SETUP.md](STUDENT_SETUP.md), and [INSTALL.md](INSTALL.md) for common
@@ -51,9 +64,9 @@ use the course environment and data from anywhere.
 classnotes/notes-{en,he,ar}/main.pdf          lecture book
 recitations/recitation-{en,he,ar}/main.pdf     recitation book
 further-reading/                               optional self-study companion
-week-0-intro/  week-1/  week-2/  week-3/  week-4/   per-week materials
+week-0-intro/  week-1/ … week-6/             per-week materials
     presentation/        Reveal slides (English, Hebrew)
-    HWn-{lang}.pdf        released homework assignments (Weeks 1–4)
+    HWn-{lang}.pdf        released homework assignments (Weeks 1–6)
     Bonusn-{lang}.pdf     optional bonus assignment
     notebooks/            lecture_nn-{lang}.ipynb, recitation_nn-{lang}.ipynb
 assets/figures/  assets/data/                  figures and CSV data
