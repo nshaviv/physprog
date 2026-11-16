@@ -19,8 +19,11 @@ You can read everything with no software installed.
   submission instructions on each assignment sheet.
 - **Slides:** `week-N/presentation/` (Weeks 0–3).
 - **Recitation book:** `recitations/recitation-{lang}/main.pdf` (through Week 5).
+- **Julia reference:** [four-page cheatsheet](reference/julia-cheatsheet.pdf)
+  (English), including `do` blocks and the semester packages. It also covers
+  planned later-week tools; it does not expand the current exam syllabus.
 
-Release: **Week 6, November 15, 2026**. Lecture cutoff: 6; homework/bonus
+Release: **Week 6 corrections and Julia reference, November 16, 2026**. Lecture cutoff: 6; homework/bonus
 cutoff: 6; worked-solution cutoff: −1 (none released). Week 6 slides,
 recitation notes, and notebooks are not yet available.
 The instructor source revision and complete file checksums are recorded in
@@ -45,6 +48,16 @@ The [Week 6 Julia examples](examples/week06-examples.jl) cover functions as
 arguments, complex numbers, dispatch, tuples, and collection operations. Run
 them section by section: several calls deliberately demonstrate errors and
 will stop a whole-file run.
+
+HW6 has four separate CodeRunner submissions, A–D. Submit only the function
+definitions requested in each part; earlier helpers are supplied in B–D.
+Reported distance and angle use four decimal places. See the assignment for
+the exact submission contents.
+
+The [Bonus 6 background examples](examples/week06-bonus-background.jl) accompany
+the self-contained phasor/interference preamble before the slit exercise.
+This physics is optional and unexamined. The required Week 6 chapter ends with
+`map`/`filter`/`filter!`; piping begins in Week 7.
 
 To run the examples, install Julia and the recorded environment — see
 [STUDENT_SETUP.md](STUDENT_SETUP.md), and [INSTALL.md](INSTALL.md) for common
@@ -71,5 +84,6 @@ week-0-intro/  week-1/ … week-6/             per-week materials
     notebooks/            lecture_nn-{lang}.ipynb, recitation_nn-{lang}.ipynb
 assets/figures/  assets/data/                  figures and CSV data
 examples/                                      runnable Julia example scripts
+reference/julia-cheatsheet.pdf                  four-page semester reference
 Project.toml  Manifest.toml  STUDENT_SETUP.md  verify_environment.jl
 ```
