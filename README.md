@@ -1,8 +1,8 @@
 # Physics Programming — student materials (77641)
 
 Student materials for the first-year course **77641 Physics Programming
-(Julia + Python)**: the orientation chapter and lecture notes and assignments
-through Week 6. English is the default;
+(Julia + Python)**: the orientation chapter, lecture notes through Week 8,
+and assignments through Week 7. English is the default;
 the books and assignments are also available in Hebrew and Arabic, and the slides
 in English and Hebrew.
 
@@ -23,10 +23,9 @@ You can read everything with no software installed.
   (English), including `do` blocks and the semester packages. It also covers
   planned later-week tools; it does not expand the current exam syllabus.
 
-Release: **Week 6 corrections and Julia reference, November 16, 2026**. Lecture cutoff: 6; homework/bonus
-cutoff: 6; worked-solution cutoff: −1 (none released). Week 6 slides,
-recitation notes, and notebooks are not yet available.
-The instructor source revision and complete file checksums are recorded in
+Release: **Chapters 7–8 and Week 7 assignments**. No worked solutions are
+included. The later chapters do not add slides, recitation notes, or
+notebooks to this release. File checksums are recorded in
 [`RELEASE.json`](RELEASE.json).
 
 There is a one-page web index with the same links at
@@ -59,6 +58,16 @@ the self-contained phasor/interference preamble before the slit exercise.
 This physics is optional and unexamined. The required Week 6 chapter ends with
 `map`/`filter`/`filter!`; piping begins in Week 7.
 
+The [Week 7 Julia examples](examples/week07-examples.jl) cover piping,
+linear systems, and least squares. HW7 includes a
+[Julia starter](week-7/hw07-starter.jl) and a
+[pipeline template](week-7/hw07-pipeline-template.txt).
+For Bonus 7, download the [starter](week-7/bonus07-starter.jl),
+[driver](week-7/bonus07-run.jl), and [plot helper](week-7/bonus07-plot.jl)
+into the same folder. The Chapter 8 examples use two sample files:
+[lamp readings](examples/data/week08-lamp.csv) and
+[background readings](examples/data/week08-background.csv).
+
 To run the examples, install Julia and the recorded environment — see
 [STUDENT_SETUP.md](STUDENT_SETUP.md), and [INSTALL.md](INSTALL.md) for common
 installation problems (for example, telling VS Code where Julia is), plus the
@@ -77,9 +86,9 @@ use the course environment and data from anywhere.
 classnotes/notes-{en,he,ar}/main.pdf          lecture book
 recitations/recitation-{en,he,ar}/main.pdf     recitation book
 further-reading/                               optional self-study companion
-week-0-intro/  week-1/ … week-6/             per-week materials
+week-0-intro/  week-1/ … week-7/             per-week materials
     presentation/        Reveal slides (English, Hebrew)
-    HWn-{lang}.pdf        released homework assignments (Weeks 1–6)
+    HWn-{lang}.pdf        released homework assignments (Weeks 1–7)
     Bonusn-{lang}.pdf     optional bonus assignment
     notebooks/            lecture_nn-{lang}.ipynb, recitation_nn-{lang}.ipynb
 assets/figures/  assets/data/                  figures and CSV data
